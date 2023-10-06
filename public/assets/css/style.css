@@ -17,3 +17,9 @@ body{
 .red{
     color: red;
 }
+.table th{
+    background-color: rgb(151, 77, 219) !important;
+}
+.table td{
+    background-color: rgb(188, 141, 232)!important;
+}
