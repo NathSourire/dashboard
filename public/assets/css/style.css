@@ -1,0 +1,19 @@
+body{
+    background-color: rgb(188, 141, 232);
+}
+.navbar{
+    background-color: rgb(151, 77, 219) !important;
+
+}
+.navbar a{
+    color: rgba(241, 245, 6, 0.977) !important;
+}
+.dropdown-menu{
+    background-color: rgb(151, 77, 219) !important;
+}
+.dropdown-item{
+    background-color: rgb(151, 77, 219) !important;
+}
+.red{
+    color: red;
+}
