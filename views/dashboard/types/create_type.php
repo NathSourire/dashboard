@@ -10,7 +10,7 @@
         <label class="form-label" for="type">Le Type</label>
         <input class="form-control" type="text" id="type" name="type" pattern="<?= REGEX_NAME ?>" require>
         <p class="red">
-            <?= $errors['lastname'] ?? '' ?>
+            <?= $errors['type'] ?? '' ?>
         </p>
     </div>
     <div>

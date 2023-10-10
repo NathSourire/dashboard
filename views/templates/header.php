@@ -32,7 +32,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/controllers/dashboard/types/create_type_ctrl.php">Créer/Ajouter</a></li>
-                            <li><a class="dropdown-item" href="/controllers/dashboard/types/list_type_ctrl.php">Lister/Modifier/Supprimer</a></li>
+                            <li><a class="dropdown-item" href="/controllers/dashboard/types/list_type_ctrl.php">Lister</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -41,7 +41,9 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/controllers/dashboard/vehicle/create_vehicle_ctrl.php">Créer/Ajouter</a></li>
-                            <li><a class="dropdown-item" href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php">Lister/Modifier/Supprimer</a></li>
+                            <li><a class="dropdown-item" href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php">Lister</a></li>
+                            <li><a class="dropdown-item" href="/controllers/dashboard/vehicle/update_vehicle_ctrl.php">Modifier</a></li>
+                            <li><a class="dropdown-item" href="/controllers/dashboard/vehicle/delete_vehicle_ctrl.php">Supprimer</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -50,7 +52,9 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/controllers/dashboard/clients/create_client_ctrl.php">Créer/Ajouter</a></li>
-                            <li><a class="dropdown-item" href="/controllers/dashboard/clients/list_client_ctrl.php">Lister/Modifier/Supprimer</a></li>
+                            <li><a class="dropdown-item" href="/controllers/dashboard/clients/list_client_ctrl.php">Lister</a></li>
+                            <li><a class="dropdown-item" href="/controllers/dashboard/clients/update_client_ctrl.php">Modifier</a></li>
+                            <li><a class="dropdown-item" href="/controllers/dashboard/clients/delete_client_ctrl.php">Supprimer</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -59,7 +63,9 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/controllers/dashboard/rents/create_rent_ctrl.php">Créer/Ajouter</a></li>
-                            <li><a class="dropdown-item" href="/controllers/dashboard/rents/list_rent_ctrl.php">Lister/Modifier/Supprimer</a></li>
+                            <li><a class="dropdown-item" href="/controllers/dashboard/rents/list_rent_ctrl.php">Lister</a></li>
+                            <li><a class="dropdown-item" href="/controllers/dashboard/rents/update_rent_ctrl.php">Modifier</a></li>
+                            <li><a class="dropdown-item" href="/controllers/dashboard/rents/delete_rent_ctrl.php">Supprimer</a></li>
                         </ul>
                     </li>
                 </ul>

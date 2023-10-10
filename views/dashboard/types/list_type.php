@@ -6,6 +6,7 @@
     <div class="row">
         <table class="table">
             <thead>
+                <th>Id</th>
                 <th>Catégories</th>
                 <th>Modifier</th>
                 <th>Supprimer</th>
@@ -15,14 +16,15 @@
                 foreach ($types as $type) {
                 ?>
                     <tr>
+                        <td><?= $type->id_types ?></td>
                         <td> <?= $type->type; ?> </td>
-                        <td><button class="btn " type="button">
-                                <img src="/public/assets/img/btnwrite.png" alt="stylo">
-                            </button>
+                        <td><a href="/controllers/dashboard/types/update_type_ctrl.php?id_types=<?= $type->id_types ?>">
+                            <img src="/public/assets/img/btnwrite.png" alt="stylo">
+                            </a>
                         </td>
-                        <td><button class="btn " type="button">
-                                <img src="/public/assets/img/btndelet.png" alt="poubelle">
-                            </button>
+                        <td><a href="/controllers/dashboard/types/delete_type_ctrl.php?id_types=<?= $type->id_types ?>">
+                            <img src="/public/assets/img/btndelet.png" alt="poubelle">
+                            </a>
                         </td>
                     </tr>
                 <?php
