@@ -1,6 +1,7 @@
 <?php 
 require_once __DIR__ . '/../../../helpers/database.php';
 require_once __DIR__ . '/../../../models/Type.php';
+require_once __DIR__ . '/../../../models/Vehicle.php';
 require_once __DIR__ . '/../../../config/regex.php';
 
 try {
@@ -38,7 +39,7 @@ try {
             }
         }
 
-        $mileage = filter_input(INPUT_POST, 'mileage', FILTER_SANITIZE_SPECIAL_CHARS);
+        $mileage = filter_input(INPUT_POST, 'mileage', FILTER_SANITIZE_NUMBER_INT);
         if (empty($mileage)) {
             $errors['mileage'] = 'Veuillez entrer un kilomètrage';
         } else {
@@ -61,14 +62,25 @@ try {
         // récuperation du type de voiture nettoyage et validation
         $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS);
         if (empty($type)) {
-            $errors['type'] = 'Veuillez entrer un type de voiture ';
+            $errors['type'] = 'Veuillez entrer un catégorie de voiture ';
         } else {
             $isOk = filter_var($type, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . REGEX_NAME . '/']]);
             if (!$isOk) {
-                $errors['type'] = 'Veuillez entrer un type de voiture correct';
+                $errors['type'] = 'Veuillez entrer une catégorie de voiture correct';
             }
         }
-        var_dump($type,$mileage,$registration,$model,$brand);
+        $id_types = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_NUMBER_INT);
+
+        if (empty($errors)) {
+            $newVehicle = new Vehicle();
+            $newVehicle->set_brand($brand);
+            $newVehicle->set_model($model);
+            $newVehicle->set_registration($registration);
+            $newVehicle->set_mileage($mileage);
+            $newVehicle->set_id_types($id_types);
+            $saved = $newVehicle->insert();
+        }
+        
     }
 } catch (\Throwable $th) {
     $error = $th->getMessage();

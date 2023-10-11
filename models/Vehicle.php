@@ -2,7 +2,8 @@
 require_once __DIR__ . '/../helpers/database.php';
 
 
-class Vehicle
+
+class Vehicle 
 {
     private int $id_vehicle;
     private string $brand;
@@ -13,6 +14,7 @@ class Vehicle
     private string $created_at;
     private string $updated_at;
     private string $deleted_at;
+    private int $id_types;
 
     public function get_id_vehicle(): int
     {
@@ -59,6 +61,10 @@ class Vehicle
         return $this->deleted_at;
     }
 
+    public function get_id_types(): int
+    {
+        return $this->id_types;
+    }
 
     public function set_id_vehicle(int $id_vehicle)
     {
@@ -104,25 +110,35 @@ class Vehicle
     {
         $this->deleted_at = $deleted_at;
     }
+    public function set_id_types(int $id_types)
+    {
+        $this->id_types = $id_types;
+    }
 
     public function insert()
     {
         $pdo = connect();
-        $sql = 'INSERT INTO `vehicles` ( `id_vehicle`, `brand`, `model`, `registration`, `mileage`, `picture` ) 
-            VALUES (:id_vehicle , :brand , :model , :registration , :mileage , :picture) ;';
+        $sql = 'INSERT INTO `vehicles` (  `brand`, `model`, `registration`, `mileage`, `id_types` ) 
+            VALUES ( :brand , :model , :registration , :mileage , :id_types) ;';
         $sth = $pdo->prepare($sql);
-        $sth->bindValue(':id_vehicle', $this->get_id_vehicle(), PDO::PARAM_INT);
         $sth->bindValue(':brand', $this->get_brand(), PDO::PARAM_STR);
         $sth->bindValue(':model', $this->get_model(), PDO::PARAM_STR);
         $sth->bindValue(':registration', $this->get_registration(), PDO::PARAM_STR);
         $sth->bindValue(':mileage', $this->get_mileage(), PDO::PARAM_INT);
-        $sth->bindValue(':picture', $this->get_picture(), PDO::PARAM_STR);
+        $sth->bindValue(':id_types', $this->get_id_types(), PDO::PARAM_INT);
         $result = $sth->execute();
         return $result;
-        var_dump($result);
     }
 
-
-
+    public static function get_all()
+    {
+        $pdo = connect();
+        $sql = 'SELECT *
+        FROM `vehicles`
+        INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`;';
+        $sth = $pdo->query($sql);
+        $vehicles = $sth->fetchAll();
+        return $vehicles;
+    }
 
 }

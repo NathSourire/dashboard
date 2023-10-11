@@ -43,13 +43,13 @@
     </div>
 
     <div>
-        <label class="form-label" for="type">Type</label>
+        <label class="form-label" for="type">Catégorie</label>
         <select class="form-select" id="type" name="type">
-            <option selected disabled value="">Type</option>
+            <option selected disabled >Catégorie</option>
             <?php
             foreach ($types as $type) { ?>
-                <option>
-                    <?= $type->type; ?>
+                <option value="<?= $type->id_types;?>">
+                    <?= $type->type;?>
                 </option>
             <?php } ?>
         </select>
@@ -61,5 +61,5 @@
     <div>
         <button type="submit">Ajouter</button>
     </div>
-    <!-- <p class="red"><?= isset($saved) ? 'Catégorie enregistrée' : '' ?></p> -->
+    <p class="red"><?= isset($saved) ? 'Catégorie enregistrée' : '' ?></p>
 </form>
