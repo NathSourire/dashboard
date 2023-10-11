@@ -1,10 +1,5 @@
-<?php
-
-?>
-
 <h1> Créer /Ajouter</h1>
 
-<a href="/controllers/dashboard/types/create_type_ctrl.php">Ajouter une catégorie</a>
 <form method="post">
     <div>
         <label class="form-label" for="type">Le Type</label>

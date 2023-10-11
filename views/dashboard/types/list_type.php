@@ -1,6 +1,6 @@
 <h1> Lister / Modifier / Supprimer</h1>
 
-<!-- <a class="" href="/controllers/dashboard/types/list_type_ctrl.php">Ajouter une catégorie</a> -->
+<a href="/controllers/dashboard/types/create_type_ctrl.php">Ajouter une catégorie</a>
 
 <div class="container">
     <div class="row">
@@ -31,5 +31,14 @@
                 } ?>
             </tbody>
         </table>
+        <p>
+            <?php 
+            if($delete == '1'){
+                echo 'Catégorie bien supprimée';
+            }else if($delete === '0'){
+                echo 'suppression échouée';
+            }
+            ?>
+        </p>
     </div>
 </div>

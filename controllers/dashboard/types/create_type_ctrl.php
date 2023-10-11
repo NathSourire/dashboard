@@ -9,12 +9,15 @@ try {
         // récuperation du type de voiture nettoyage et validation
         $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS);
         if (empty($type)) {
-            $errors['type'] = 'Veuillez entrer un nom de famille ';
+            $errors['type'] = 'Veuillez entrer un type de voiture ';
         } else {
             $isOk = filter_var($type, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . REGEX_NAME . '/']]);
             if (!$isOk) {
                 $errors['type'] = 'Veuillez entrer un type de voiture correct';
             }
+        }
+        if (Type::isExist($type)){
+            $errors['type'] = 'la catégorie exist déja';
         }
         if (empty($errors)) {
             $newType = new Type();

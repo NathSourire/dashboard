@@ -9,6 +9,7 @@ try {
     // $types = $obj->get_all();
     // ou 
     $types = Type::get_all();
+    $delete = filter_input(INPUT_GET, 'delete', FILTER_SANITIZE_NUMBER_INT);
     $title = 'Lister/Modifier/Supprimer';
 } catch (\Throwable $th) {
 
