@@ -1,6 +1,6 @@
 <h1> Créer /Ajouter</h1>
 
-<form method="post" novalidate>
+<form enctype="multipart/form-data" method="post" novalidate>
     <div>
         <label class="form-label" for="brand">Marque</label>
         <input class="form-control" type="text" id="brand" name="brand" value="" pattern="<?= REGEX_NAME ?>" required>

@@ -1,6 +1,6 @@
 <h1> Créer /Ajouter</h1>
 
-<form method="post">
+<form enctype="multipart/form-data" method="post">
     <div>
         <label class="form-label" for="type">Le Type</label>
         <input class="form-control" type="text" id="type" name="type" pattern="<?= REGEX_NAME ?>" require>

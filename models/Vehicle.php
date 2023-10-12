@@ -10,10 +10,10 @@ class Vehicle
     private string $model;
     private string $registration;
     private int $mileage;
-    private string $picture;
+    private ?string $picture;
     private string $created_at;
     private string $updated_at;
-    private string $deleted_at;
+    private ?string $deleted_at;
     private int $id_types;
 
     public function get_id_vehicle(): int
@@ -36,7 +36,7 @@ class Vehicle
         return $this->registration;
     }
 
-    public function get_picture(): string
+    public function get_picture(): ?string
     {
         return $this->picture;
     }
@@ -56,7 +56,7 @@ class Vehicle
         return $this->updated_at;
     }
 
-    public function get_deleted_at(): string
+    public function get_deleted_at(): ?string
     {
         return $this->deleted_at;
     }
@@ -86,7 +86,7 @@ class Vehicle
         $this->registration = $registration;
     }
 
-    public function set_picture(string $picture)
+    public function set_picture(?string $picture)
     {
         $this->picture = $picture;
     }
@@ -100,6 +100,11 @@ class Vehicle
     {
         $this->created_at = $created_at;
     }
+    // pour mettre une date en haut dans private string $created_at; on replace par     private DateTime $created_at;
+    // public function set_created_at(string $created_at)
+    // {
+    //     $this->created_at = new DateTime($created_at);
+    // }
 
     public function set_updated_at(string $updated_at)
     {
