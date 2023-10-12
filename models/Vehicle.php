@@ -5,7 +5,7 @@ require_once __DIR__ . '/../helpers/database.php';
 
 class Vehicle 
 {
-    private int $id_vehicle;
+    private int $id_vehicles;
     private string $brand;
     private string $model;
     private string $registration;
@@ -16,9 +16,9 @@ class Vehicle
     private ?string $deleted_at;
     private int $id_types;
 
-    public function get_id_vehicle(): int
+    public function get_id_vehicles(): int
     {
-        return $this->id_vehicle;
+        return $this->id_vehicles;
     }
 
     public function get_brand(): string
@@ -66,9 +66,9 @@ class Vehicle
         return $this->id_types;
     }
 
-    public function set_id_vehicle(int $id_vehicle)
+    public function set_id_vehicles(int $id_vehicles)
     {
-        $this->id_vehicle = $id_vehicle;
+        $this->id_vehicles = $id_vehicles;
     }
 
     public function set_brand(string $brand)
@@ -142,8 +142,72 @@ class Vehicle
         FROM `vehicles`
         INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`;';
         $sth = $pdo->query($sql);
-        $vehicles = $sth->fetchAll();
-        return $vehicles;
+        $result = $sth->fetchAll();
+        return $result;
+    }
+
+
+    public static function get(int $id_vehicles): object
+    {
+        $pdo = connect();
+        $sql = 'SELECT * FROM `vehicles` WHERE `id_vehicles` = :id_vehicles ;';
+        $sth = $pdo->prepare($sql);
+        $sth->bindValue(':id_vehicles', $id_vehicles, PDO::PARAM_INT);
+        $sth->execute();
+        $result = $sth->fetch(PDO::FETCH_OBJ);
+        var_dump($result);
+        die;
+        return $result;
+
+    }
+
+    public function update(): bool
+    {
+        $pdo = connect();
+        $sql = 'UPDATE `vehicles` SET `brand` = :brand, `model` = :model, `registration` = :registration,
+        `mileage` = :mileage, `id_types` = :id_types, `id_vehicles` = :id_vehicles  
+        WHERE `id_vehicles` = :id_vehicles ;';
+        $sth = $pdo->prepare($sql);
+        $sth->bindValue(':brand', $this->get_brand(), PDO::PARAM_STR);
+        $sth->bindValue(':model', $this->get_model(), PDO::PARAM_STR);
+        $sth->bindValue(':registration', $this->get_registration(), PDO::PARAM_STR);
+        $sth->bindValue(':mileage', $this->get_mileage(), PDO::PARAM_INT);
+        $sth->bindValue(':id_types', $this->get_id_types(), PDO::PARAM_INT);
+        $sth->bindValue(':id_vehicles', $this->get_id_vehicles(), PDO::PARAM_INT);
+        return $sth->execute();
+    }
+
+    public static function delete(int $id_vehicles): bool
+    {
+        $pdo = connect();
+        $sql = 'DELETE FROM `vehicles` WHERE `id_vehicles` = :id_vehicles ;';
+        $sth = $pdo->prepare($sql);
+        $sth->bindValue(':id_vehicles', $id_vehicles, PDO::PARAM_INT);
+        $sth->execute();
+        return (bool) $sth->rowCount();
     }
 
 }
+
+    // public static function asc(){
+    //     $pdo = connect();
+    //     $sql = 'SELECT `vehicles`.`brand`, `vehicles`.`model`, `types`.`type`
+    //     FROM `vehicles`
+    //     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
+    //     ORDER BY `vehicles`.`brand`, `vehicles`.`model`, `types`.`type` ASC;';
+    //     $sth = $pdo->query($sql);
+    //     $vehicles = $sth->fetchAll();
+    //     return $vehicles;
+    // }
+    
+
+    // public static function desc(){
+    //     $pdo = connect();
+    //     $sql = 'SELECT `vehicles`.`brand`, `vehicles`.`model`, `types`.`type`
+    //     FROM `vehicles`
+    //     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
+    //     ORDER BY `vehicles`.`brand`, `vehicles`.`model`, `types`.`type` DESC;';
+    //     $sth = $pdo->query($sql);
+    //     $vehicles = $sth->fetchAll();
+    //     return $vehicles;
+    // }

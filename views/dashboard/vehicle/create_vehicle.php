@@ -1,5 +1,7 @@
 <h1> Créer /Ajouter</h1>
 
+<a href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php">Liste des véhicules</a>
+
 <form enctype="multipart/form-data" method="post" novalidate>
     <div>
         <label class="form-label" for="brand">Marque</label>

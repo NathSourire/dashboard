@@ -11,5 +11,5 @@
     <div>
         <button type="submit">Modifier</button>
     </div>
-    <p class="red"><?= isset($saved) ? 'Catégorie enregistrée' : '' ?></p>
+    <p class="red"><?= isset($saved) ? 'Catégorie modifiée' : '' ?></p>
 </form>

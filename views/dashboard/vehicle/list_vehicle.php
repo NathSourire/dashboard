@@ -19,6 +19,40 @@
                 <th>Catégorie</th>
                 <th>Modifier</th>
                 <th>Supprimer</th>
+                <tr class="arrow">
+                    <td>
+                        <a href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php?">
+                            <img src="/public/assets/img/flèche_haut.png" alt="fleche vers le haut">
+                        </a>
+                        <a href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php">
+                            <img src="/public/assets/img/flèche_bas.png" alt="fleche vers le bas">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php">
+                            <img src="/public/assets/img/flèche_haut.png" alt="fleche vers le haut">
+                        </a>
+                        <a href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php">
+                            <img src="/public/assets/img/flèche_bas.png" alt="fleche vers le bas">
+                        </a>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <a href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php">
+                            <img src="/public/assets/img/flèche_haut.png" alt="fleche vers le haut">
+                        </a>
+                        <a href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php">
+                            <img src="/public/assets/img/flèche_bas.png" alt="fleche vers le bas">
+                        </a>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </thead>
             <tbody>
                 <?php
@@ -37,11 +71,11 @@
                         <td><?= $vehicle->deleted_at ?></td>
                         <!-- <td><?= $vehicle->id_types ?></td> -->
                         <td><?= $vehicle->type ?></td>
-                        <td><a href="/controllers/dashboard/types/update_type_ctrl.php?id_types=<?= $vehicle->id_vehicles ?>">
+                        <td><a href="/controllers/dashboard/vehicle/update_vehicle_ctrl.php?id_vehicles=<?= $vehicle->id_vehicles ?>">
                                 <img src="/public/assets/img/btnwrite.png" alt="stylo">
                             </a>
                         </td>
-                        <td><a href="/controllers/dashboard/types/delete_type_ctrl.php?id_types=<?= $vehicle->id_vehicles ?>">
+                        <td><a href="/controllers/dashboard/vehicle/delete_vehicle_ctrl.php?id_vehicles=<?= $vehicle->id_vehicles ?>">
                                 <img src="/public/assets/img/btndelet.png" alt="poubelle">
                             </a>
                         </td>
@@ -49,14 +83,15 @@
                 <?php } ?>
             </tbody>
         </table>
-        <!-- <div>
-            <label for="search">recherche</label>
-            <input type="search" name="search" id="search">
-            <p class="red">
-                <?= $errors['type'] ?? '' ?>
-            </p>
-        </div> -->
-
+        <p>
+            <?php 
+            if($delete == '1'){
+                echo 'Catégorie bien supprimée';
+            }else if($delete === '0'){
+                echo 'suppression échouée';
+            }
+            ?>
+        </p>
     </div>
 </div>
 <tbody>
