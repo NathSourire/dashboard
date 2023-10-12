@@ -77,10 +77,6 @@ try {
             $errors['id_type'] = 'la catégorie n\'existe pas';
         }
 
-
-
-
-
         if (empty($errors)) {
             $newVehicle = new Vehicle();
             $newVehicle->set_brand($brand);

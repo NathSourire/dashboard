@@ -8,7 +8,7 @@
             <thead>
                 <!-- <th>Id_Véhicule</th> -->
                 <th>Marque</th>
-                <th>Modèle</th>
+                <th><a href="?order=DESC">Modèle</a></th>
                 <th>Immatriculation</th>
                 <th>Kilométrage</th>
                 <th>Photo</th>
@@ -18,8 +18,9 @@
                 <!-- <th>Id_Catégorie</th> -->
                 <th>Catégorie</th>
                 <th>Modifier</th>
+                <th>Archiver</th>
                 <th>Supprimer</th>
-                <tr class="arrow">
+                <!-- <tr class="arrow">
                     <td>
                         <a href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php?">
                             <img src="/public/assets/img/flèche_haut.png" alt="fleche vers le haut">
@@ -52,7 +53,7 @@
                     </td>
                     <td></td>
                     <td></td>
-                </tr>
+                </tr> -->
             </thead>
             <tbody>
                 <?php
@@ -73,6 +74,10 @@
                         <td><?= $vehicle->type ?></td>
                         <td><a href="/controllers/dashboard/vehicle/update_vehicle_ctrl.php?id_vehicles=<?= $vehicle->id_vehicles ?>">
                                 <img src="/public/assets/img/btnwrite.png" alt="stylo">
+                            </a>
+                        </td>
+                        <td><a href="/controllers/dashboard/vehicle/delete_vehicle_ctrl.php?id_vehicles=<?= $vehicle->id_vehicles ?>">
+                                <img src="/public/assets/img/btnarchived.png" alt="archive">
                             </a>
                         </td>
                         <td><a href="/controllers/dashboard/vehicle/delete_vehicle_ctrl.php?id_vehicles=<?= $vehicle->id_vehicles ?>">

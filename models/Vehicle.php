@@ -3,7 +3,7 @@ require_once __DIR__ . '/../helpers/database.php';
 
 
 
-class Vehicle 
+class Vehicle
 {
     private int $id_vehicles;
     private string $brand;
@@ -135,7 +135,7 @@ class Vehicle
         return $result;
     }
 
-    public static function get_all()
+    public static function get_all():array
     {
         $pdo = connect();
         $sql = 'SELECT *
@@ -146,6 +146,19 @@ class Vehicle
         return $result;
     }
 
+//     public static function get_all(string $order):array
+// {
+//     $pdo = connect();
+//     $sql = 'SELECT *
+//     FROM `vehicles`
+//     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
+//     ORDER BY `vehicles`.`model` :order;';
+//     $sth = $pdo->prepare($sql);
+//     $sth->bindValue(':order', $order);
+//     $sth->execute();
+//     $result = $sth->fetchAll();
+//     return $result;
+// }
 
     public static function get(int $id_vehicles): object
     {
@@ -158,8 +171,8 @@ class Vehicle
         var_dump($result);
         die;
         return $result;
-
     }
+
 
     public function update(): bool
     {
@@ -187,27 +200,45 @@ class Vehicle
         return (bool) $sth->rowCount();
     }
 
+
+
 }
 
-    // public static function asc(){
-    //     $pdo = connect();
-    //     $sql = 'SELECT `vehicles`.`brand`, `vehicles`.`model`, `types`.`type`
-    //     FROM `vehicles`
-    //     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
-    //     ORDER BY `vehicles`.`brand`, `vehicles`.`model`, `types`.`type` ASC;';
-    //     $sth = $pdo->query($sql);
-    //     $vehicles = $sth->fetchAll();
-    //     return $vehicles;
-    // }
-    
 
-    // public static function desc(){
-    //     $pdo = connect();
-    //     $sql = 'SELECT `vehicles`.`brand`, `vehicles`.`model`, `types`.`type`
-    //     FROM `vehicles`
-    //     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
-    //     ORDER BY `vehicles`.`brand`, `vehicles`.`model`, `types`.`type` DESC;';
-    //     $sth = $pdo->query($sql);
-    //     $vehicles = $sth->fetchAll();
-    //     return $vehicles;
-    // }
+// public static function get_all(string $order):array
+// {
+//     $pdo = connect();
+//     $sql = 'SELECT *
+//     FROM `vehicles`
+//     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
+//     ORDER BY `vehicles`.`brand` :order, `vehicles`.`model` :order, `types`.`type` :order;';
+//     $sth = $pdo->prepare($sql);
+//     $sth->bindValue(':order', $order);
+//     $sth->execute();
+//     $result = $sth->fetchAll();
+//     return $result;
+// }
+
+// public static function asc($order){
+//     $pdo = connect();
+//     $sql = 'SELECT `vehicles`.`brand`, `vehicles`.`model`, `types`.`type`
+//     FROM `vehicles`
+//     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
+//     ORDER BY `vehicles`.`brand` :order, `vehicles`.`model` :order, `types`.`type` :order ASC;';
+//     $sth = $pdo->prepare($sql);
+//     $sth->bindValue(':order', $order);
+//     $vehicles = $sth->fetchAll();
+//     return $vehicles;
+// }
+
+// public static function desc($order){
+//     $pdo = connect();
+//     $sql = 'SELECT `vehicles`.`brand`, `vehicles`.`model`, `types`.`type`
+//     FROM `vehicles`
+//     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
+//     ORDER BY `vehicles`.`brand` :order, `vehicles`.`model` :order, `types`.`type` :order DESC;';
+//     $sth = $pdo->prepare($sql);
+//     $sth->bindValue(':order', $order);
+//     $vehicles = $sth->fetchAll();
+//     return $vehicles;
+// }
