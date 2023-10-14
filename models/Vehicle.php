@@ -1,8 +1,5 @@
 <?php
 require_once __DIR__ . '/../helpers/database.php';
-
-
-
 class Vehicle
 {
     private int $id_vehicles;
@@ -119,7 +116,7 @@ class Vehicle
     {
         $this->id_types = $id_types;
     }
-
+    //fonction pour ajouter un objet
     public function insert()
     {
         $pdo = connect();
@@ -135,31 +132,50 @@ class Vehicle
         return $result;
     }
 
-    public static function get_all():array
+    //fonction qui affiche tout
+    // public static function get_all():array
+    // {
+    //     $pdo = connect();
+    //     $sql = 'SELECT *
+    //     FROM `vehicles`
+    //     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`;';
+    //     $sth = $pdo->query($sql);
+    //     $result = $sth->fetchAll();
+    //     return $result;
+    // }
+
+    //fonction qui affiche tout et qui classe 
+    //     public static function get_all(string $order):array
+    // {
+    //     $pdo = connect();
+    //     $sql = "SELECT *
+    //     FROM `vehicles`
+    //     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
+    //     ORDER BY `vehicles`.`brand` $order, `vehicles`.`model` $order, `types`.`type` $order ;";
+    //     $sth = $pdo->query($sql);
+    //     // $sth->bindValue(':order', $order);
+    //     $sth->execute();
+    //     $result = $sth->fetchAll();
+    //     return $result;
+    // }
+
+    //fonction qui affiche que si la colonne deleted at et vide
+    public static function get_all(string $order): array
     {
         $pdo = connect();
-        $sql = 'SELECT *
-        FROM `vehicles`
-        INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`;';
+        $sql = "SELECT *
+    FROM `vehicles`
+    INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
+    WHERE `vehicles`.`deleted_at` IS NULL
+    ORDER BY `vehicles`.`brand` $order, `vehicles`.`model` $order, `types`.`type` $order ;";
         $sth = $pdo->query($sql);
+        // $sth->bindValue(':order', $order);
+        $sth->execute();
         $result = $sth->fetchAll();
         return $result;
     }
 
-//     public static function get_all(string $order):array
-// {
-//     $pdo = connect();
-//     $sql = 'SELECT *
-//     FROM `vehicles`
-//     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
-//     ORDER BY `vehicles`.`model` :order;';
-//     $sth = $pdo->prepare($sql);
-//     $sth->bindValue(':order', $order);
-//     $sth->execute();
-//     $result = $sth->fetchAll();
-//     return $result;
-// }
-
+    // fonction qui permet de recuperer une catégorie précise
     public static function get(int $id_vehicles): object
     {
         $pdo = connect();
@@ -168,12 +184,10 @@ class Vehicle
         $sth->bindValue(':id_vehicles', $id_vehicles, PDO::PARAM_INT);
         $sth->execute();
         $result = $sth->fetch(PDO::FETCH_OBJ);
-        var_dump($result);
-        die;
         return $result;
     }
 
-
+    //fonction pour modifier
     public function update(): bool
     {
         $pdo = connect();
@@ -190,6 +204,7 @@ class Vehicle
         return $sth->execute();
     }
 
+    // fonction pour supprimer le vehicule
     public static function delete(int $id_vehicles): bool
     {
         $pdo = connect();
@@ -200,45 +215,50 @@ class Vehicle
         return (bool) $sth->rowCount();
     }
 
+    //fonction pour archiver un véhicule et lui attribué une date
+    public static function archived(int $id_vehicles): bool
+    {
+        $pdo = connect();
+        $sql = 'UPDATE `vehicles` SET `deleted_at`= NOW() WHERE `id_vehicles` = :id_vehicles ;';
+        $sth = $pdo->prepare($sql);
+        $sth->bindValue(':id_vehicles', $id_vehicles, PDO::PARAM_INT);
+        $sth->execute();
+        $result = $sth->fetch();
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
+    public static function get_all_archived(string $order): array
+    {
+        $pdo = connect();
+        $sql = "SELECT *
+    FROM `vehicles`
+    INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
+    WHERE `vehicles`.`deleted_at` IS NOT NULL
+    ORDER BY `vehicles`.`brand` $order, `vehicles`.`model` $order, `types`.`type` $order ;";
+        $sth = $pdo->query($sql);
+        // $sth->bindValue(':order', $order);
+        $sth->execute();
+        $result = $sth->fetchAll(PDO::FETCH_OBJ);
+        return $result;
+    }
 
+    //fonction pour archiver un véhicule et lui attribué une date
+    public static function restored(int $id_vehicles): bool
+    {
+        $pdo = connect();
+        $sql = 'UPDATE `vehicles` SET `deleted_at`= NULL WHERE `id_vehicles` = :id_vehicles ;';
+        $sth = $pdo->prepare($sql);
+        $sth->bindValue(':id_vehicles', $id_vehicles, PDO::PARAM_INT);
+        $sth->execute();
+        $rowCount = $sth->rowCount();
+        if ($rowCount > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
-
-
-// public static function get_all(string $order):array
-// {
-//     $pdo = connect();
-//     $sql = 'SELECT *
-//     FROM `vehicles`
-//     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
-//     ORDER BY `vehicles`.`brand` :order, `vehicles`.`model` :order, `types`.`type` :order;';
-//     $sth = $pdo->prepare($sql);
-//     $sth->bindValue(':order', $order);
-//     $sth->execute();
-//     $result = $sth->fetchAll();
-//     return $result;
-// }
-
-// public static function asc($order){
-//     $pdo = connect();
-//     $sql = 'SELECT `vehicles`.`brand`, `vehicles`.`model`, `types`.`type`
-//     FROM `vehicles`
-//     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
-//     ORDER BY `vehicles`.`brand` :order, `vehicles`.`model` :order, `types`.`type` :order ASC;';
-//     $sth = $pdo->prepare($sql);
-//     $sth->bindValue(':order', $order);
-//     $vehicles = $sth->fetchAll();
-//     return $vehicles;
-// }
-
-// public static function desc($order){
-//     $pdo = connect();
-//     $sql = 'SELECT `vehicles`.`brand`, `vehicles`.`model`, `types`.`type`
-//     FROM `vehicles`
-//     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
-//     ORDER BY `vehicles`.`brand` :order, `vehicles`.`model` :order, `types`.`type` :order DESC;';
-//     $sth = $pdo->prepare($sql);
-//     $sth->bindValue(':order', $order);
-//     $vehicles = $sth->fetchAll();
-//     return $vehicles;
-// }

@@ -37,8 +37,8 @@
 
     <div>
         <label class="form-label" for="picture">Photo</label>
-        <div class="border border-3 pictureProfil ms-5 "></div>
-        <input class="form-control my-3" type="file" id="picture" name="picture" accept=".png, .jpeg, .jpg, .gif">
+        <!-- <div class="border border-3 pictureProfil ms-5 "></div> -->
+        <input class="form-control my-3" type="file" id="picture" name="picture" accept=".wepb, .png, .jpeg, .jpg, .gif">
         <p class="red">
             <?= $errors['picture'] ?? '' ?>
         </p>

@@ -1,3 +1,3 @@
 <main>
-    <div> <?= $error ?></div>
+    <div> <?= $errors ?></div>
 </main>

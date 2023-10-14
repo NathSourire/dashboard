@@ -3,16 +3,18 @@ require_once __DIR__ . '/../../../helpers/database.php';
 require_once __DIR__ . '/../../../models/Vehicle.php';
 
 try {
+
     $delete = filter_input(INPUT_GET, 'delete', FILTER_SANITIZE_NUMBER_INT);
-    $vehicles = Vehicle::get_all();
     $title = 'Lister/Modifier/Supprimer';
 
-    // $order = filter_input(INPUT_GET, 'order', FILTER_SANITIZE_SPECIAL_CHARS);
-    // if(empty($order) || $order != 'ASC' || $order != 'DESC' ){
-    //     $order='ASC';
-    // }
-    
+    $order = filter_input(INPUT_GET, 'order', FILTER_SANITIZE_SPECIAL_CHARS);
+    if((empty($order) || $order != 'ASC') && $order != 'DESC' ){
+        $order='ASC';
+    }
 
+    $vehicles = Vehicle::get_all($order);
+    $archived = Vehicle::get_all_archived($order);
+    $archive = filter_input(INPUT_GET, 'archive', FILTER_SANITIZE_NUMBER_INT);
 
 } catch (\Throwable $th) {
 

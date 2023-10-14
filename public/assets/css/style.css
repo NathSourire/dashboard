@@ -17,13 +17,18 @@ body{
 .red{
     color: red;
 }
-.table th{
+.tablelist th{
     background-color: rgb(151, 77, 219) !important;
 }
-.table td{
+.tablelist td{
     background-color: rgb(188, 141, 232)!important;
 }
-
+.tablearchived th{
+    background-color: rgb(151, 77, 219) !important;
+}
+.tablearchived td{
+    background-color: rgb(188, 141, 232)!important;
+}
 .pictureProfil{
     height: 200px;
     width: 150px;
