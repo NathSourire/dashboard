@@ -12,9 +12,13 @@ try {
         $order='ASC';
     }
 
+    //affiche le tableau des véhicules 
     $vehicles = Vehicle::get_all($order);
+    //affiche le tableau des véhicules archiver
     $archived = Vehicle::get_all_archived($order);
-    $archive = filter_input(INPUT_GET, 'archive', FILTER_SANITIZE_NUMBER_INT);
+
+    // $archive = filter_input(INPUT_GET, 'archive', FILTER_SANITIZE_NUMBER_INT);
+
 
 } catch (\Throwable $th) {
 

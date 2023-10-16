@@ -3,6 +3,7 @@ require_once __DIR__ . '/../../../helpers/database.php';
 require_once __DIR__ . '/../../../models/Type.php';
 require_once __DIR__ . '/../../../models/Vehicle.php';
 require_once __DIR__ . '/../../../config/regex.php';
+require_once __DIR__ . '/../../../config/constants.php';
 
 
 
@@ -87,7 +88,7 @@ try {
                 $errors['picture'] = 'Veuillez entrer un fichier avec une taille inferieur';
             }
             $extension = pathinfo($picture['name'], PATHINFO_EXTENSION);
-            $newnamefile = uniqid('img') . '.' . $extension;
+            $newnamefile = uniqid('img_') . '.' . $extension;
             $from = $picture['tmp_name'];
             $to = __DIR__ . '/../../../public/uploads/vehicles/' . $newnamefile;
             move_uploaded_file($from, $to);
