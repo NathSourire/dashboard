@@ -120,8 +120,8 @@ class Vehicle
     public function insert()
     {
         $pdo = connect();
-        $sql = 'INSERT INTO `vehicles` (  `brand`, `model`, `registration`, `mileage`, `id_types`, `picture` ) 
-            VALUES ( :brand, :model, :registration, :mileage, :id_types, :picture ) ;';
+        $sql = 'INSERT INTO `vehicles` (  `brand` , `model` , `registration` , `mileage` , `id_types` , `picture` ) 
+            VALUES ( :brand , :model , :registration , :mileage , :id_types , :picture ) ;';
         $sth = $pdo->prepare($sql);
         $sth->bindValue(':brand', $this->get_brand(), PDO::PARAM_STR);
         $sth->bindValue(':model', $this->get_model(), PDO::PARAM_STR);
@@ -237,10 +237,10 @@ class Vehicle
     {
         $pdo = connect();
         $sql = "SELECT *
-    FROM `vehicles`
-    INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
-    WHERE `vehicles`.`deleted_at` IS NOT NULL
-    ORDER BY `vehicles`.`brand` $order, `vehicles`.`model` $order, `types`.`type` $order ;";
+        FROM `vehicles`
+        INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
+        WHERE `vehicles`.`deleted_at` IS NOT NULL
+        ORDER BY `vehicles`.`brand` $order, `vehicles`.`model` $order, `types`.`type` $order ;";
         $sth = $pdo->query($sql);
         // $sth->bindValue(':order', $order);
         $sth->execute();

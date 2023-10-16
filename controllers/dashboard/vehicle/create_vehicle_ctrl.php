@@ -54,16 +54,6 @@ try {
             }
         }
 
-        $picture = filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_SPECIAL_CHARS);
-        if (empty($picture)) {
-            $errors['picture'] = 'Veuillez entrer une photo ';
-        } else {
-            $isOk = filter_var($picture, FILTER_VALIDATE_REGEXP);
-            if (!$isOk) {
-                $errors['picture'] = 'Veuillez entrer une photo valide';
-            }
-        }
-
         // récuperation du type de voiture nettoyage et validation
         $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS);
         if (empty($type)) {
@@ -87,56 +77,38 @@ try {
             if (empty($picture)) {
                 throw new Exception("Veuillez entrer un fichier", 1);
             }
-            if ($picture['errors'] > 0) {
+            if ($picture['error'] > 0) {
                 throw new Exception("Fichier non envoyé", 2);
             }
             if (!in_array($picture['type'], EXTENSION)) {
-                throw new Exception("Veuillez entrer un fichier valide ( soit .png, .jpg, .jpeg, .gif, .pdf, .webp)", 3);
+                throw new Exception("Veuillez entrer un fichier valide ( soit .png, .jpg, .jpeg, .gif, .pdf)", 3);
             }
             if ($picture['size'] > FILESIZE) {
                 $errors['picture'] = 'Veuillez entrer un fichier avec une taille inferieur';
             }
             $extension = pathinfo($picture['name'], PATHINFO_EXTENSION);
-            $newNamefile = uniqid('img') . '.' . $extension;
+            $newnamefile = uniqid('img') . '.' . $extension;
             $from = $picture['tmp_name'];
-            $to = __DIR__ . '/../../../public/uploads/vehicles/' . $newNamefile;
+            $to = __DIR__ . '/../../../public/uploads/vehicles/' . $newnamefile;
             move_uploaded_file($from, $to);
-
-            if (empty($errors)) {
-                $newVehicle = new Vehicle();
-                $newVehicle->set_brand($brand);
-                $newVehicle->set_model($model);
-                $newVehicle->set_registration($registration);
-                $newVehicle->set_mileage($mileage);
-                $newVehicle->set_id_types($id_types);
-                $newVehicle->set_picture($picture);
-                $saved = $newVehicle->insert();
-            }
             
         } catch (\Throwable $th) {
             $errors = $th->getMessage();
         }
+        if (empty($errors)) {
+            $newVehicle = new Vehicle();
+            $newVehicle->set_brand($brand);
+            $newVehicle->set_model($model);
+            $newVehicle->set_registration($registration);
+            $newVehicle->set_mileage($mileage);
+            $newVehicle->set_id_types($id_types);
+            $newVehicle->set_picture($newnamefile);
+            $saved = $newVehicle->insert();
+        }
 
-        // if (isset($_FILES['picture'])) {
-        //     $picture = $_FILES['picture'];
-        //     if (!empty($picture['tmp_name'])) {
-        //         if ($picture['errors'] > 0) {
-        //             $errors['picture'] = 'message';
-        //         }
-        //     }
-        //     if (!in_array($picture['type'], EXTENSION)) {
-        //         $errors['picture'] = 'message';
-        //     } else {
-        //         $extension = pathinfo($picture['name'], PATHINFO_EXTENSION);
-        //         $from = $picture['tmp_name'];
-        //         $fileName = uniqid('img') . '.' . $extension;
-        //         $to = __DIR__ . 'chemin du dossier' . $fileName;
-        //         move_uploaded_file($from, $to);
-        //     }
-        // }
     }
 } catch (\Throwable $th) {
-    $error = $th->getMessage();
+    $errors = $th->getMessage();
 
     include __DIR__ . '/../../../views/templates/header.php';
     include __DIR__ . '/../../../views/templates/error.php';
