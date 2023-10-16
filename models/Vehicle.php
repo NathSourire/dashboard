@@ -120,14 +120,15 @@ class Vehicle
     public function insert()
     {
         $pdo = connect();
-        $sql = 'INSERT INTO `vehicles` (  `brand`, `model`, `registration`, `mileage`, `id_types` ) 
-            VALUES ( :brand , :model , :registration , :mileage , :id_types) ;';
+        $sql = 'INSERT INTO `vehicles` (  `brand`, `model`, `registration`, `mileage`, `id_types`, `picture` ) 
+            VALUES ( :brand, :model, :registration, :mileage, :id_types, :picture ) ;';
         $sth = $pdo->prepare($sql);
         $sth->bindValue(':brand', $this->get_brand(), PDO::PARAM_STR);
         $sth->bindValue(':model', $this->get_model(), PDO::PARAM_STR);
         $sth->bindValue(':registration', $this->get_registration(), PDO::PARAM_STR);
         $sth->bindValue(':mileage', $this->get_mileage(), PDO::PARAM_INT);
         $sth->bindValue(':id_types', $this->get_id_types(), PDO::PARAM_INT);
+        $sth->bindValue(':picture', $this->get_picture(), PDO::PARAM_STR);
         $result = $sth->execute();
         return $result;
     }
@@ -192,7 +193,7 @@ class Vehicle
     {
         $pdo = connect();
         $sql = 'UPDATE `vehicles` SET `brand` = :brand, `model` = :model, `registration` = :registration,
-        `mileage` = :mileage, `id_types` = :id_types, `id_vehicles` = :id_vehicles  
+        `mileage` = :mileage, `id_types` = :id_types, `id_vehicles` = :id_vehicles `picture` = :picture  
         WHERE `id_vehicles` = :id_vehicles ;';
         $sth = $pdo->prepare($sql);
         $sth->bindValue(':brand', $this->get_brand(), PDO::PARAM_STR);
@@ -201,6 +202,7 @@ class Vehicle
         $sth->bindValue(':mileage', $this->get_mileage(), PDO::PARAM_INT);
         $sth->bindValue(':id_types', $this->get_id_types(), PDO::PARAM_INT);
         $sth->bindValue(':id_vehicles', $this->get_id_vehicles(), PDO::PARAM_INT);
+        $sth->bindValue(':picture', $this->get_picture(), PDO::PARAM_STR);
         return $sth->execute();
     }
 

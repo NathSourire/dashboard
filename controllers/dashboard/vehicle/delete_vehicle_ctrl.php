@@ -9,18 +9,22 @@ try {
     $id_vehicles = intval(filter_input(INPUT_GET, 'id_vehicles', FILTER_SANITIZE_NUMBER_INT));
     
     $errors = [];
-    //restore
-    $restor = (int) Vehicle::restored($id_vehicles);
-    header('location: /controllers/dashboard/vehicle/list_vehicle_ctrl.php?restor='.$restored);
-    die; 
-    //archive
-    $archived = (int) Vehicle::archived($id_vehicles);
-    header('location: /controllers/dashboard/vehicle/list_vehicle_ctrl.php?archive='.$archived);
-    die; 
-    //supprimer
-    $isDeleted = (int) Vehicle::delete($id_vehicles);
-    header('location: /controllers/dashboard/vehicle/list_vehicle_ctrl.php?delete='.$isDeleted);
-    die; 
+
+    switch ($action) {
+        case 'archive':
+            $archived = (int) Vehicle::archived($id_vehicles);
+            header('location: /controllers/dashboard/vehicle/list_vehicle_ctrl.php?archive='.$archived);
+            die;
+        case 'restor':
+            $restor = (int) Vehicle::restored($id_vehicles);
+            header('location: /controllers/dashboard/vehicle/list_vehicle_ctrl.php?restor='.$restored);
+            die; 
+        case 'delete':
+            $isDeleted = (int) Vehicle::delete($id_vehicles);
+            header('location: /controllers/dashboard/vehicle/list_vehicle_ctrl.php?delete='.$isDeleted);
+            die;     
+    }
+    
     
 } catch (\Throwable $th) {
     $error = $th->getMessage();

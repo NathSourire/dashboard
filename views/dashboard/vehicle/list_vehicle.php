@@ -81,7 +81,7 @@
                                 <img src="/public/assets/img/btnarchived.png" alt="archive">
                             </a>
                         </td>
-                        <td><a href="/controllers/dashboard/vehicle/delete_vehicle_ctrl.php?id_vehicles=<?= $vehicle->id_vehicles ?>">
+                        <td><a href="/controllers/dashboard/vehicle/delete_vehicle_ctrl.php?action=delete&id_vehicles=<?= $vehicle->id_vehicles ?>">
                                 <img src="/public/assets/img/btndelet.png" alt="poubelle">
                             </a>
                         </td>
@@ -141,7 +141,7 @@
                                 <img src="/public/assets/img/btnarchived.png" alt="archive">
                             </a>
                         </td>
-                        <td><a href="/controllers/dashboard/vehicle/delete_vehicle_ctrl.php?id_vehicles=<?= $vehicle->id_vehicles ?>">
+                        <td><a href="/controllers/dashboard/vehicle/delete_vehicle_ctrl.php?action=delete&id_vehicles=<?= $vehicle->id_vehicles ?>">
                                 <img src="/public/assets/img/btndelet.png" alt="poubelle">
                             </a>
                         </td>
@@ -149,17 +149,5 @@
                 <?php } ?>
             </tbody>
         </table>
-        <p>
-            <?php 
-            if($delete == '1'){
-                echo 'Catégorie bien supprimée';
-            }else if($delete === '0'){
-                echo 'suppression échouée';
-            }
-            ?>
-        </p>
-
     </div>
-
-
 </div>

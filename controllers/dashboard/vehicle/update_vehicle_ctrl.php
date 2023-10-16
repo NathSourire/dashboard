@@ -10,6 +10,7 @@ try {
     $vehicleObj = Vehicle::get($id_vehicles);
     $types = Type::get_all();
     $errors = [];
+    
 
     if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         // récuperation du type de voiture nettoyage et validation
