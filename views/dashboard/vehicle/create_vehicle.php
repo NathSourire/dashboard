@@ -37,7 +37,7 @@
 
     <div>
         <label class="form-label" for="picture">Photo</label>
-        <div class="border border-3 pictureProfil ms-5 "></div>
+        <!-- <div class="border border-3 pictureProfil ms-5 "></div> -->
         <input class="form-control my-3" type="file" id="picture" name="picture" accept=".wepb, .png, .jpeg, .jpg, .gif">
         <p class="red">
             <?= $errors['picture'] ?? '' ?>
@@ -61,7 +61,7 @@
     </div>
 
     <div>
-        <button type="submit">Ajouter</button>
+        <button class="btn btn-light" type="submit">Ajouter</button>
     </div>
     <p class="red"><?= isset($saved) ? 'Catégorie enregistrée' : '' ?></p>
 </form>

@@ -1,5 +1,4 @@
 <?php 
-require_once __DIR__ . '/../../../helpers/database.php';
 require_once __DIR__ . '/../../../config/regex.php';
 require_once __DIR__ . '/../../../models/Vehicle.php';
 
@@ -7,8 +6,8 @@ require_once __DIR__ . '/../../../models/Vehicle.php';
 try {
     $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
     $id_vehicles = intval(filter_input(INPUT_GET, 'id_vehicles', FILTER_SANITIZE_NUMBER_INT));
-    $delete = filter_input(INPUT_GET, 'delete', FILTER_SANITIZE_NUMBER_INT);
-
+    // permet d'afficher sur la liste si bien supprimer
+    $delete = filter_input(INPUT_GET, 'delete', FILTER_SANITIZE_NUMBER_INT); 
     
     $errors = [];
 
@@ -23,8 +22,11 @@ try {
             die; 
         case 'delete':
             $isDeleted = (int) Vehicle::delete($id_vehicles);
+            if ($isDeleted){
+            unlink( __DIR__ . '/../../../public/uploads/vehicles/'. $vehicleObj->picture );
+            }
             header('location: /controllers/dashboard/vehicle/list_vehicle_ctrl.php?delete='.$isDeleted);
-            die;     
+            die;
     }
     
     

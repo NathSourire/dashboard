@@ -56,13 +56,14 @@ class Type
     }
 
     /**
-     * @return [type]
-     * fonction permet de lister les catégorie
+    * fonction qui permet de lister les catégories
+     * @return [array]
      */
-    public static function get_all()
+    public static function get_all(): array
     {
         $pdo = connect();
-        $sql = 'SELECT * FROM `types`;';
+        $sql = 'SELECT * FROM `types`
+        ORDER BY `type` ASC;';
         $sth = $pdo->query($sql);
         $types = $sth->fetchAll();
         return $types;

@@ -6,7 +6,6 @@
     <div class="row">
         <table class="table tablelist">
             <thead>
-                <!-- <th>Id_Véhicule</th> -->
                 <th><a href="?order=<?= $order == 'ASC' ? 'DESC' : 'ASC' ?>">Catégorie</a></th>                
                 <th><a href="?order=<?= $order == 'ASC' ? 'DESC' : 'ASC' ?>">Marque</a></th>
                 <th><a href="?order=<?= $order == 'ASC' ? 'DESC' : 'ASC' ?>">Modèle</a></th>
@@ -16,10 +15,8 @@
                 <th>Crée le</th>
                 <th>Mis à jour le</th>
                 <th>Suprimé le</th>
-                <!-- <th>Id_Catégorie</th> -->
                 <th>Modifier</th>
                 <th>Archiver</th>
-                <th>Supprimer</th>
                 <!-- <tr class="arrow">
                     <td>
                         <a href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php?">
@@ -61,7 +58,6 @@
 
                 ?>
                     <tr>
-                        <!-- <td><?= $vehicle->id_vehicles ?></td> -->
                         <td><?= $vehicle->type ?></td>
                         <td><?= $vehicle->brand ?></td>
                         <td><?= $vehicle->model ?></td>
@@ -71,7 +67,6 @@
                         <td><?= $vehicle->created_at ?></td>
                         <td><?= $vehicle->updated_at ?></td>
                         <td><?= $vehicle->deleted_at ?></td>
-                        <!-- <td><?= $vehicle->id_types ?></td> -->
 
                         <td><a href="/controllers/dashboard/vehicle/update_vehicle_ctrl.php?id_vehicles=<?= $vehicle->id_vehicles ?>">
                                 <img src="/public/assets/img/btnwrite.png" alt="stylo">
@@ -81,10 +76,6 @@
                                 <img src="/public/assets/img/btnarchived.png" alt="archive">
                             </a>
                         </td>
-                        <td><a href="/controllers/dashboard/vehicle/delete_vehicle_ctrl.php?action=delete&id_vehicles=<?= $vehicle->id_vehicles ?>">
-                                <img src="/public/assets/img/btndelet.png" alt="poubelle">
-                            </a>
-                        </td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -92,7 +83,7 @@
         <p>
             <?php 
             if($delete == '1'){
-                echo 'Catégorie bien supprimée';
+                echo 'Véhicule bien supprimée';
             }else if($delete === '0'){
                 echo 'suppression échouée';
             }
@@ -113,7 +104,7 @@
                 <th>Photo</th>
                 <th>Crée le</th>
                 <th>Mis à jour le</th>
-                <th>Suprimé le</th>
+                <th>Archivé le</th>
                 <th>Modifier</th>
                 <th>Archiver</th>
                 <th>Supprimer</th>

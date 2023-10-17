@@ -1,6 +1,6 @@
 <h1> Modifier</h1>
 
-<form method="post" novalidate>
+<form enctype="multipart/form-data" method="post" novalidate>
 
     <div>
         <label class="form-label" for="brand">Marque</label>
@@ -36,7 +36,7 @@
 
     <div>
         <label class="form-label" for="picture">Photo</label>
-        <div class="border border-3 pictureProfil ms-5 "><img src="<?= isset($vehicleObj->picture) ?>" alt=""></div>
+        <div class="border border-3 pictureProfil ms-5 "><img class="img-fluid" src="/public/uploads/vehicles/<?= $vehicleObj->picture ?>" alt=""></div>
         <input class="form-control my-3" type="file" id="picture" name="picture" accept=".png, .jpeg, .jpg, .gif">
         <p class="red">
             <?= $errors['picture'] ?? '' ?>

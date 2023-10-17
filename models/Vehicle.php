@@ -117,7 +117,7 @@ class Vehicle
         $this->id_types = $id_types;
     }
     //fonction pour ajouter un objet
-    public function insert()
+    public function insert():bool
     {
         $pdo = connect();
         $sql = 'INSERT INTO `vehicles` (  `brand` , `model` , `registration` , `mileage` , `id_types` , `picture` ) 
@@ -129,9 +129,19 @@ class Vehicle
         $sth->bindValue(':mileage', $this->get_mileage(), PDO::PARAM_INT);
         $sth->bindValue(':id_types', $this->get_id_types(), PDO::PARAM_INT);
         $sth->bindValue(':picture', $this->get_picture(), PDO::PARAM_STR);
-        $result = $sth->execute();
-        return $result;
+        $sth->execute();
+        return (bool) $sth->rowCount();
+        // ou 
+        // $rowCount = $sth->rowCount();
+        // if ($rowCount > 0) {
+        //     return true;
+        // } else {
+        //     return false;
+        // }
+        // ou
+        // return ($rowCount >0) ? true : false;
     }
+    
 
     //fonction qui affiche tout
     // public static function get_all():array
@@ -193,7 +203,7 @@ class Vehicle
     {
         $pdo = connect();
         $sql = 'UPDATE `vehicles` SET `brand` = :brand, `model` = :model, `registration` = :registration,
-        `mileage` = :mileage, `id_types` = :id_types, `id_vehicles` = :id_vehicles `picture` = :picture  
+        `mileage` = :mileage, `id_types` = :id_types, `id_vehicles` = :id_vehicles, `picture` = :picture  
         WHERE `id_vehicles` = :id_vehicles ;';
         $sth = $pdo->prepare($sql);
         $sth->bindValue(':brand', $this->get_brand(), PDO::PARAM_STR);
@@ -203,7 +213,8 @@ class Vehicle
         $sth->bindValue(':id_types', $this->get_id_types(), PDO::PARAM_INT);
         $sth->bindValue(':id_vehicles', $this->get_id_vehicles(), PDO::PARAM_INT);
         $sth->bindValue(':picture', $this->get_picture(), PDO::PARAM_STR);
-        return $sth->execute();
+        $sth->execute();
+        return (bool) $sth->rowCount();
     }
 
     // fonction pour supprimer le vehicule
@@ -256,11 +267,6 @@ class Vehicle
         $sth = $pdo->prepare($sql);
         $sth->bindValue(':id_vehicles', $id_vehicles, PDO::PARAM_INT);
         $sth->execute();
-        $rowCount = $sth->rowCount();
-        if ($rowCount > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return (bool) $sth->rowCount();
     }
 }

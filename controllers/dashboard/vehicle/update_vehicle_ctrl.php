@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/../../../helpers/database.php';
 require_once __DIR__ . '/../../../config/regex.php';
 require_once __DIR__ . '/../../../models/Vehicle.php';
 require_once __DIR__ . '/../../../models/Type.php';
@@ -54,45 +53,38 @@ try {
             }
         }
 
-        // récuperation du type de voiture nettoyage et validation
-        $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS);
-        if (empty($type)) {
-            $errors['type'] = 'Veuillez entrer un catégorie de voiture ';
-        } else {
-            $isOk = filter_var($type, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . REGEX_NAME . '/']]);
-            // ou  $isOk = filter_var($type, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '/' . REGEX_NAME . '/')));
-            if (!$isOk) {
-                $errors['type'] = 'Veuillez entrer une catégorie de voiture correct';
-            }
-        }
-
         $id_types = intval(filter_input(INPUT_POST, 'type', FILTER_SANITIZE_NUMBER_INT));
         if (!Type::get($id_types)) {
             $errors['id_type'] = 'la catégorie n\'existe pas';
         }
 
         //récuperation du ficher recu nettoyage et validation
+        $newnamefile = $vehicleObj->picture;
         try {
             $picture = ($_FILES['picture']);
-            if (empty($picture)) {
-                throw new Exception("Veuillez entrer un fichier", 1);
+
+            if (!empty($picture)){
+
+                if ($picture['error'] > 0) {
+                    throw new Exception("Fichier non envoyé", 1);
+                }
+                if (!in_array($picture['type'], EXTENSION)) {
+                    throw new Exception("Veuillez entrer un fichier valide ( soit .png, .jpg, .jpeg, .gif, .pdf, wepb)", 2);
+                }
+                if ($picture['size'] > FILESIZE) {
+                    throw new Exception ('Veuillez entrer un fichier avec une taille inferieur', 3);
+                }
+                $extension = pathinfo($picture['name'], PATHINFO_EXTENSION);
+                $newnamefile = uniqid('img_') . '.' . $extension;
+                $from = $picture['tmp_name'];
+                $to = __DIR__ . '/../../../public/uploads/vehicles/' . $newnamefile;
+                move_uploaded_file($from, $to);
+                @unlink( __DIR__ . '/../../../public/uploads/vehicles/'. $vehicleObj->picture );
             }
-            if ($picture['error'] > 0) {
-                throw new Exception("Fichier non envoyé", 2);
-            }
-            if (!in_array($picture['type'], EXTENSION)) {
-                throw new Exception("Veuillez entrer un fichier valide ( soit .png, .jpg, .jpeg, .gif, .pdf, wepb)", 3);
-            }
-            if ($picture['size'] > FILESIZE) {
-                $errors['picture'] = 'Veuillez entrer un fichier avec une taille inferieur';
-            }
-            $extension = pathinfo($picture['name'], PATHINFO_EXTENSION);
-            $newnamefile = uniqid('img_') . '.' . $extension;
-            $from = $picture['tmp_name'];
-            $to = __DIR__ . '/../../../public/uploads/vehicles/' . $newnamefile;
-            move_uploaded_file($from, $to);
+
         } catch (\Throwable $th) {
-            $errors = $th->getMessage();
+            $errors ['picture']= $th->getMessage();
+            
         }
 
         if (empty($errors)) {
@@ -113,7 +105,7 @@ try {
     }
 } catch (\Throwable $th) {
 
-    $error = $th->getMessage();
+    $errors = $th->getMessage();
 
     include __DIR__ . '/../../../views/templates/header.php';
     include __DIR__ . '/../../../views/templates/error.php';
