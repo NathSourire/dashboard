@@ -61,11 +61,9 @@ try {
         //récuperation du ficher recu nettoyage et validation
         $newnamefile = $vehicleObj->picture;
         try {
-            $picture = ($_FILES['picture']);
-
-            if (!empty($picture)){
-
-                if ($picture['error'] > 0) {
+            $picture = $_FILES['picture'];
+            if (!empty($picture['name'])){
+                if ($picture['error'] != 0) {
                     throw new Exception("Fichier non envoyé", 1);
                 }
                 if (!in_array($picture['type'], EXTENSION)) {
@@ -78,8 +76,8 @@ try {
                 $newnamefile = uniqid('img_') . '.' . $extension;
                 $from = $picture['tmp_name'];
                 $to = __DIR__ . '/../../../public/uploads/vehicles/' . $newnamefile;
-                move_uploaded_file($from, $to);
                 @unlink( __DIR__ . '/../../../public/uploads/vehicles/'. $vehicleObj->picture );
+                move_uploaded_file($from, $to);
             }
 
         } catch (\Throwable $th) {

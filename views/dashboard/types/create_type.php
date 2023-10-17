@@ -1,5 +1,7 @@
 <h1> Créer /Ajouter</h1>
 
+<a href="/controllers/dashboard/types/list_type_ctrl.php ">Liste des véhicules</a>
+
 <form enctype="multipart/form-data" method="post">
     <div>
         <label class="form-label" for="type">Le Type</label>
