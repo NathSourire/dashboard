@@ -63,7 +63,7 @@
                         <td><?= $vehicle->model ?></td>
                         <td><?= $vehicle->registration ?></td>
                         <td><?= $vehicle->mileage ?></td>
-                        <td><?= $vehicle->picture ?></td>
+                        <td><a href="/public/uploads/vehicles/?id_vehicles=<?= $vehicle->id_vehicles ?>"><?= $vehicle->picture ?></a></td>
                         <!-- <td><?= $vehicle->created_at ?></td> -->
                         <!-- <td><?= $vehicle->updated_at ?></td> -->
                         <!-- <td><?= $vehicle->deleted_at ?></td> -->

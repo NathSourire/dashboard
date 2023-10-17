@@ -23,10 +23,11 @@ try {
         case 'delete':
             $isDeleted = (int) Vehicle::delete($id_vehicles);
             if ($isDeleted){
-            unlink( __DIR__ . '/../../../public/uploads/vehicles/'. $vehicleObj->picture );
-            }
+            @unlink( __DIR__ . '/../../../public/uploads/vehicles/'. $vehicleObj->picture );
             header('location: /controllers/dashboard/vehicle/list_vehicle_ctrl.php?delete='.$isDeleted);
             die;
+            }
+
     }
     
     
