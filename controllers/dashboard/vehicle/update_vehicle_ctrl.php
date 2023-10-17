@@ -37,7 +37,7 @@ try {
         if (empty($registration)) {
             $errors['registration'] = 'Veuillez entrer une marque ';
         } else {
-            $isOk = filter_var($registration, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . REGEX_MILEAGE . '/']]);
+            $isOk = filter_var($registration, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . REGEX_REGISTRATION. '/']]);
             if (!$isOk) {
                 $errors['registration'] = 'Veuillez entrer un type de voiture correct';
             }
@@ -62,12 +62,14 @@ try {
         $newnamefile = $vehicleObj->picture;
         try {
             $picture = $_FILES['picture'];
+            
             if (!empty($picture['name'])){
-                if ($picture['error'] != 0) {
+
+                if ($picture['errors'] > 0) {
                     throw new Exception("Fichier non envoyé", 1);
                 }
                 if (!in_array($picture['type'], EXTENSION)) {
-                    throw new Exception("Veuillez entrer un fichier valide ( soit .png, .jpg, .jpeg, .gif, .pdf, wepb)", 2);
+                    throw new Exception("Veuillez entrer un fichier valide ( soit .png, .jpg, .jpeg, .gif, .pdf, .webp)", 2);
                 }
                 if ($picture['size'] > FILESIZE) {
                     throw new Exception ('Veuillez entrer un fichier avec une taille inferieur', 3);

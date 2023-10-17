@@ -11,7 +11,6 @@ try {
     $types = Type::get_all();
     $errors = [];
 
-
     if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         // récuperation du type de voiture nettoyage et validation
         $brand = filter_input(INPUT_POST, 'brand', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -38,7 +37,7 @@ try {
         if (empty($registration)) {
             $errors['registration'] = 'Veuillez entrer une marque ';
         } else {
-            $isOk = filter_var($registration, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . REGEX_MILEAGE . '/']]);
+            $isOk = filter_var($registration, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . REGEX_REGISTRATION . '/']]);
             if (!$isOk) {
                 $errors['registration'] = 'Veuillez entrer un type de voiture correct';
             }
@@ -55,8 +54,6 @@ try {
         }
 
         // récuperation de id du type de voiture nettoyage et validation
-
-
         $id_types = intval(filter_input(INPUT_POST, 'type', FILTER_SANITIZE_NUMBER_INT));
         if (!Type::get($id_types)) {
             $errors['id_type'] = 'la catégorie n\'existe pas';
@@ -64,15 +61,15 @@ try {
 
         //récuperation du ficher recu nettoyage et validation
         try {
-            $picture = ($_FILES['picture']);
-            if (!empty($picture['name'])) {
+            $picture = $_FILES['picture'];
+            if (empty($picture['name'])) {
                 throw new Exception("Veuillez entrer un fichier", 1);
             }
             if ($picture['error'] > 0) {
                 throw new Exception("Fichier non envoyé", 2);
             }
             if (!in_array($picture['type'], EXTENSION)) {
-                throw new Exception("Veuillez entrer un fichier valide ( soit .png, .jpg, .jpeg, .gif, .pdf)", 3);
+                throw new Exception("Veuillez entrer un fichier valide ( soit .png, .jpg, .jpeg, .gif, .pdf, .webp)", 3);
             }
             if ($picture['size'] > FILESIZE) {
                 throw new Exception ('Veuillez entrer un fichier avec une taille inferieur', 4);
@@ -85,6 +82,7 @@ try {
             
         } catch (\Throwable $th) {
             $errors ['picture']= $th->getMessage();
+            var_dump($th);
         }
 
         if (empty($errors)) {
@@ -96,10 +94,10 @@ try {
             $newVehicle->set_id_types($id_types);
             $newVehicle->set_picture($newnamefile);
             $saved = $newVehicle->insert();
-            if ($saved == true) {
-                header('location: /controllers/dashboard/vehicle/list_vehicle_ctrl.php');
-                die;
-            }
+            // if ($saved == true) {
+            //     header('location: /controllers/dashboard/vehicle/list_vehicle_ctrl.php');
+            //     die;
+            // }
         }
 
     }

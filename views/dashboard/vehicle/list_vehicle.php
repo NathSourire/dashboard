@@ -6,15 +6,15 @@
     <div class="row">
         <table class="table tablelist">
             <thead>
-                <th><a href="?order=<?= $order == 'ASC' ? 'DESC' : 'ASC' ?>">Catégorie</a></th>                
-                <th><a href="?order=<?= $order == 'ASC' ? 'DESC' : 'ASC' ?>">Marque</a></th>
-                <th><a href="?order=<?= $order == 'ASC' ? 'DESC' : 'ASC' ?>">Modèle</a></th>
+                <th><a href="?column=type&order=<?= ($order == 'DESC') ? 'ASC' : 'DESC'; ?>">Catégorie</a></th>                
+                <th><a href="?column=brand&order=<?= ($order == 'DESC') ? 'ASC' : 'DESC'; ?>">Marque</a></th>
+                <th><a href="?column=model&order=<?= ($order == 'DESC') ? 'ASC' : 'DESC'; ?>">Modèle</a></th>
                 <th>Immatriculation</th>
-                <th>Kilométrage</th>
+                <th><a href="?column=mileage&order=<?= ($order == 'DESC') ? 'ASC' : 'DESC'; ?>">Kilométrage</a></th>
                 <th>Photo</th>
-                <th>Crée le</th>
-                <th>Mis à jour le</th>
-                <th>Suprimé le</th>
+                <!-- <th>Crée le</th> -->
+                <!-- <th>Mis à jour le</th> -->
+                <!-- <th>Suprimé le</th> -->
                 <th>Modifier</th>
                 <th>Archiver</th>
                 <!-- <tr class="arrow">
@@ -64,9 +64,9 @@
                         <td><?= $vehicle->registration ?></td>
                         <td><?= $vehicle->mileage ?></td>
                         <td><?= $vehicle->picture ?></td>
-                        <td><?= $vehicle->created_at ?></td>
-                        <td><?= $vehicle->updated_at ?></td>
-                        <td><?= $vehicle->deleted_at ?></td>
+                        <!-- <td><?= $vehicle->created_at ?></td> -->
+                        <!-- <td><?= $vehicle->updated_at ?></td> -->
+                        <!-- <td><?= $vehicle->deleted_at ?></td> -->
 
                         <td><a href="/controllers/dashboard/vehicle/update_vehicle_ctrl.php?id_vehicles=<?= $vehicle->id_vehicles ?>">
                                 <img src="/public/assets/img/btnwrite.png" alt="stylo">
@@ -96,14 +96,14 @@
         <h3>Les véhicules archivés</h3>
         <table class="table tablearchived">
             <thead>
-                <th><a href="?order=<?= $order == 'ASC' ? 'DESC' : 'ASC' ?>">Catégorie</a></th>                
-                <th><a href="?order=<?= $order == 'ASC' ? 'DESC' : 'ASC' ?>">Marque</a></th>
-                <th><a href="?order=<?= $order == 'ASC' ? 'DESC' : 'ASC' ?>">Modèle</a></th>
+                <th>Catégorie</th>                
+                <th>Marque</th>
+                <th>Modèle</th>
                 <th>Immatriculation</th>
                 <th>Kilométrage</th>
                 <th>Photo</th>
-                <th>Crée le</th>
-                <th>Mis à jour le</th>
+                <!-- <th>Crée le</th> -->
+                <!-- <th>Mis à jour le</th> -->
                 <th>Archivé le</th>
                 <th>Modifier</th>
                 <th>Archiver</th>
@@ -121,8 +121,8 @@
                         <td><?= $vehicle->registration ?></td>
                         <td><?= $vehicle->mileage ?></td>
                         <td><?= $vehicle->picture ?></td>
-                        <td><?= $vehicle->created_at ?></td>
-                        <td><?= $vehicle->updated_at ?></td>
+                        <!-- <td><?= $vehicle->created_at ?></td> -->
+                        <!-- <td><?= $vehicle->updated_at ?></td> -->
                         <td><?= $vehicle->deleted_at ?></td>
                         <td><a href="/controllers/dashboard/vehicle/update_vehicle_ctrl.php?id_vehicles=<?= $vehicle->id_vehicles ?>">
                                 <img src="/public/assets/img/btnwrite.png" alt="stylo">

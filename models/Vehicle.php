@@ -7,10 +7,10 @@ class Vehicle
     private string $model;
     private string $registration;
     private int $mileage;
-    private ?string $picture;
-    private string $created_at;
-    private string $updated_at;
-    private ?string $deleted_at;
+    private ?string $picture = NULL;
+    private DateTime $created_at;
+    private DateTime $updated_at;
+    private ?DateTime $deleted_at;
     private int $id_types;
 
     public function get_id_vehicles(): int
@@ -43,17 +43,17 @@ class Vehicle
         return $this->mileage;
     }
 
-    public function get_created_at(): string
+    public function get_created_at(): DateTime
     {
         return $this->created_at;
     }
 
-    public function get_updated_at(): string
+    public function get_updated_at(): DateTime
     {
         return $this->updated_at;
     }
 
-    public function get_deleted_at(): ?string
+    public function get_deleted_at(): DateTime
     {
         return $this->deleted_at;
     }
@@ -95,7 +95,7 @@ class Vehicle
 
     public function set_created_at(string $created_at)
     {
-        $this->created_at = $created_at;
+        $this->created_at = new DateTime($created_at);
     }
     // pour mettre une date en haut dans private string $created_at; on replace par     private DateTime $created_at;
     // public function set_created_at(string $created_at)
@@ -105,12 +105,12 @@ class Vehicle
 
     public function set_updated_at(string $updated_at)
     {
-        $this->updated_at = $updated_at;
+        $this->updated_at = new DateTime($updated_at);
     }
 
     public function set_deleted_at(string $deleted_at)
     {
-        $this->deleted_at = $deleted_at;
+        $this->deleted_at = new DateTime($deleted_at);
     }
     public function set_id_types(int $id_types)
     {
@@ -171,17 +171,16 @@ class Vehicle
     // }
 
     //fonction qui affiche que si la colonne deleted at et vide
-    public static function get_all(string $order): array
+    public static function get_all($column, $order): array
     {
+        $table = ($column == 'type') ? 'types' : 'vehicles' ;
         $pdo = connect();
         $sql = "SELECT *
     FROM `vehicles`
     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
     WHERE `vehicles`.`deleted_at` IS NULL
-    ORDER BY `vehicles`.`brand` $order, `vehicles`.`model` $order, `types`.`type` $order ;";
+    ORDER by `$table`.`$column` $order;";
         $sth = $pdo->query($sql);
-        // $sth->bindValue(':order', $order);
-        $sth->execute();
         $result = $sth->fetchAll();
         return $result;
     }
