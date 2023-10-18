@@ -4,32 +4,32 @@
 
 <form enctype="multipart/form-data" method="post" novalidate>
     <div>
-        <label class="form-label" for="brand">Marque</label>
-        <input class="form-control" type="text" id="brand" name="brand" value="" pattern="<?= REGEX_NAME ?>" required>
+        <label class="form-label" for="brand">Marque *</label>
+        <input class="form-control" type="text" id="brand" name="brand" value="" pattern="<?= REGEX_NAME ?>" required placeholder="Ex: Statik">
         <p class="red">
             <?= $errors['brand'] ?? '' ?>
         </p>
     </div>
 
     <div>
-        <label class="form-label" for="model">Modèle</label>
-        <input class="form-control" type="text" id="model" name="model" value="" pattern="<?= REGEX_NAME ?>" required>
+        <label class="form-label" for="model">Modèle *</label>
+        <input class="form-control" type="text" id="model" name="model" value="" pattern="<?= REGEX_NAME ?>" required placeholder="Ex: Souris">
         <p class="red">
             <?= $errors['model'] ?? '' ?>
         </p>
     </div>
 
     <div>
-        <label class="form-label" for="registration">Immatriculation</label>
-        <input class="form-control" type="text" id="registration" name="registration" value="" pattern="<?= REGEX_MILEAGE ?>" required>
+        <label class="form-label" for="registration">Immatriculation *</label>
+        <input class="form-control" type="text" id="registration" name="registration" value="" pattern="<?= REGEX_MILEAGE ?>" required placeholder="Ex: 82exp" > 
         <p class="red">
             <?= $errors['registration'] ?? '' ?>
         </p>
     </div>
 
     <div>
-        <label class="form-label" for="mileage">Kilométrage</label>
-        <input class="form-control" type="text" id="mileage" name="mileage" value="" pattern="<?= REGEX_MILEAGE ?>" required>
+        <label class="form-label" for="mileage">Kilométrage *</label>
+        <input class="form-control" type="text" id="mileage" name="mileage" value="" pattern="<?= REGEX_MILEAGE ?>" required placeholder="Ex: 6kg">
         <p class="red">
             <?= $errors['mileage'] ?? '' ?>
         </p>
@@ -45,7 +45,7 @@
     </div>
 
     <div>
-        <label class="form-label" for="type">Catégorie</label>
+        <label class="form-label" for="type">Catégorie *</label>
         <select class="form-select" id="type" name="type">
             <option selected disabled >Catégorie</option>
             <?php
@@ -65,3 +65,4 @@
     </div>
     <p class="red"><?= isset($saved) ? 'Catégorie enregistrée' : '' ?></p>
 </form>
+<p>* Champs obligatoires</p>

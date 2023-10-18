@@ -6,72 +6,38 @@
     <div class="row">
         <table class="table tablelist">
             <thead>
-                <th><a href="?column=type&order=<?= ($order == 'DESC') ? 'ASC' : 'DESC'; ?>">Catégorie</a></th>                
-                <th><a href="?column=brand&order=<?= ($order == 'DESC') ? 'ASC' : 'DESC'; ?>">Marque</a></th>
-                <th><a href="?column=model&order=<?= ($order == 'DESC') ? 'ASC' : 'DESC'; ?>">Modèle</a></th>
+                <th><a href="?column=type&order=<?= ($order == 'DESC') ? 'ASC' : 'DESC'; ?>">Catégorie
+                <img src="/public/assets/img/flèche_haut.png" alt="fleche vers le haut"><img src="/public/assets/img/flèche_bas.png" alt="fleche vers le bas"></a></th>                
+                <th><a href="?column=brand&order=<?= ($order == 'DESC') ? 'ASC' : 'DESC'; ?>">Marque
+                <img src="/public/assets/img/flèche_haut.png" alt="fleche vers le haut"><img src="/public/assets/img/flèche_bas.png" alt="fleche vers le bas"></a></th>
+                <th><a href="?column=model&order=<?= ($order == 'DESC') ? 'ASC' : 'DESC'; ?>">Modèle
+                <img src="/public/assets/img/flèche_haut.png" alt="fleche vers le haut"><img src="/public/assets/img/flèche_bas.png" alt="fleche vers le bas"></a></th>
                 <th>Immatriculation</th>
-                <th><a href="?column=mileage&order=<?= ($order == 'DESC') ? 'ASC' : 'DESC'; ?>">Kilométrage</a></th>
+                <th><a href="?column=mileage&order=<?= ($order == 'DESC') ? 'ASC' : 'DESC'; ?>">Kilométrage
+                <img src="/public/assets/img/flèche_haut.png" alt="fleche vers le haut"><img src="/public/assets/img/flèche_bas.png" alt="fleche vers le bas"></a></th>
                 <th>Photo</th>
-                <!-- <th>Crée le</th> -->
-                <!-- <th>Mis à jour le</th> -->
-                <!-- <th>Suprimé le</th> -->
                 <th>Modifier</th>
                 <th>Archiver</th>
-                <!-- <tr class="arrow">
-                    <td>
-                        <a href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php?">
-                            <img src="/public/assets/img/flèche_haut.png" alt="fleche vers le haut">
-                        </a>
-                        <a href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php">
-                            <img src="/public/assets/img/flèche_bas.png" alt="fleche vers le bas">
-                        </a>
-                    </td>
-                    <td>
-                        <a href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php">
-                            <img src="/public/assets/img/flèche_haut.png" alt="fleche vers le haut">
-                        </a>
-                        <a href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php">
-                            <img src="/public/assets/img/flèche_bas.png" alt="fleche vers le bas">
-                        </a>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <a href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php">
-                            <img src="/public/assets/img/flèche_haut.png" alt="fleche vers le haut">
-                        </a>
-                        <a href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php">
-                            <img src="/public/assets/img/flèche_bas.png" alt="fleche vers le bas">
-                        </a>
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr> -->
             </thead>
             <tbody>
                 <?php
                 foreach ($vehicles as $vehicle) {
-
                 ?>
                     <tr>
-                        <td><?= $vehicle->type ?></td>
+                        <!-- <td title="<?= 'date de création '.$vehicle->created_at.' date de mise à jour '. $vehicle->updated_at ?>"><?= $vehicle->type ?></td> -->
+                        <td title="<?= 'date de création '. date("d/m/Y H:i", strtotime($vehicle->created_at)) .' date de mise à jour '. date("d/m/Y H:i", strtotime($vehicle->updated_at)) ?>"><?= $vehicle->type ?></td>
                         <td><?= $vehicle->brand ?></td>
                         <td><?= $vehicle->model ?></td>
                         <td><?= $vehicle->registration ?></td>
                         <td><?= $vehicle->mileage ?></td>
                         <?php if (isset($vehicle->picture)) { ?>
-                        <td><a href="/public/uploads/vehicles/<?= $vehicle->picture?>"><?= $vehicle->picture ?></a></td>
+                        <td><a href="/public/uploads/vehicles/<?= $vehicle->picture?>" target="_blank" ><?= $vehicle->picture ?></a></td>
                         <?php } else { ?>
                         <td></td>
                         <?php } ?>
                         <!-- <td><?= $vehicle->created_at ?></td> -->
                         <!-- <td><?= $vehicle->updated_at ?></td> -->
                         <!-- <td><?= $vehicle->deleted_at ?></td> -->
-
                         <td><a href="/controllers/dashboard/vehicle/update_vehicle_ctrl.php?id_vehicles=<?= $vehicle->id_vehicles ?>">
                                 <img src="/public/assets/img/btnwrite.png" alt="stylo">
                             </a>
@@ -127,7 +93,7 @@
                         <td><?= $vehicle->picture ?></td>
                         <!-- <td><?= $vehicle->created_at ?></td> -->
                         <!-- <td><?= $vehicle->updated_at ?></td> -->
-                        <td><?= $vehicle->deleted_at ?></td>
+                        <td><?= date("d/m/Y H:i", strtotime($vehicle->deleted_at)) ?></td>
                         <td><a href="/controllers/dashboard/vehicle/update_vehicle_ctrl.php?id_vehicles=<?= $vehicle->id_vehicles ?>">
                                 <img src="/public/assets/img/btnwrite.png" alt="stylo">
                             </a>

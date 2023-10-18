@@ -2,8 +2,7 @@
 require_once __DIR__ . '/../../../models/Vehicle.php';
 
 try {
-
-
+    $formatted_date = date("d/m/Y H:i:s", strtotime($date_from_database));
     $title = 'Lister/Modifier/Supprimer';
     $column = filter_input(INPUT_GET, 'column', FILTER_SANITIZE_SPECIAL_CHARS);
     $order = filter_input(INPUT_GET, 'order', FILTER_SANITIZE_SPECIAL_CHARS);
