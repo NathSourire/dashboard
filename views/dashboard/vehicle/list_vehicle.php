@@ -63,7 +63,11 @@
                         <td><?= $vehicle->model ?></td>
                         <td><?= $vehicle->registration ?></td>
                         <td><?= $vehicle->mileage ?></td>
-                        <td><a href="/public/uploads/vehicles/?id_vehicles=<?= $vehicle->id_vehicles ?>"><?= $vehicle->picture ?></a></td>
+                        <?php if (isset($vehicle->picture)) { ?>
+                        <td><a href="/public/uploads/vehicles/<?= $vehicle->picture?>"><?= $vehicle->picture ?></a></td>
+                        <?php } else { ?>
+                        <td></td>
+                        <?php } ?>
                         <!-- <td><?= $vehicle->created_at ?></td> -->
                         <!-- <td><?= $vehicle->updated_at ?></td> -->
                         <!-- <td><?= $vehicle->deleted_at ?></td> -->

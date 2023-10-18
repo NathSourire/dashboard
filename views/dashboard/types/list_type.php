@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="row">
-        <table class="table">
+        <table class="table tablelist">
             <thead>
                 <th>Id</th>
                 <th>Catégories</th>

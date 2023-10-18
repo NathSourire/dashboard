@@ -22,6 +22,7 @@ body{
 }
 .tablelist td{
     background-color: rgb(188, 141, 232)!important;
+    
 }
 .tablearchived th{
     background-color: rgb(151, 77, 219) !important;
@@ -32,4 +33,8 @@ body{
 .pictureProfil{
     height: 200px;
     width: 150px;
+}
+a{
+    text-decoration: none;
+    color: inherit;
 }
