@@ -1,34 +1,39 @@
 body{
-    background-color: rgb(188, 141, 232);
+    background-color: #00407E ;
+    font-family: Georgia;
+    color: #FFCC00;
 }
 .navbar{
-    background-color: rgb(151, 77, 219) !important;
+    background-color: #FFCC00 !important;
 
 }
 .navbar a{
-    color: rgba(241, 245, 6, 0.977) !important;
+    color: #00407E !important;
 }
 .dropdown-menu{
-    background-color: rgb(151, 77, 219) !important;
+    background-color: #FFCC00 !important;
 }
 .dropdown-item{
-    background-color: rgb(151, 77, 219) !important;
+    background-color: #FFCC00 !important;
 }
 .red{
     color: red;
 }
 .tablelist th{
-    background-color: rgb(151, 77, 219) !important;
+    background-color: #00407E !important;
+    color: #FFCC00;
 }
 .tablelist td{
-    background-color: rgb(188, 141, 232)!important;
-    
+    background-color: #2a6bad !important;
+    color: #FFCC00;
 }
 .tablearchived th{
-    background-color: rgb(151, 77, 219) !important;
+    background-color: #00407E !important;
+    color: #FFCC00;
 }
 .tablearchived td{
-    background-color: rgb(188, 141, 232)!important;
+    background-color: #2a6bad!important;
+    color: #FFCC00;
 }
 .pictureProfil{
     height: 200px;
@@ -40,5 +45,11 @@ a{
     
 }
 a:hover {
-    color: yellow;
+    color: red;
     }
+.imgpokemon{
+    height: 60px;
+    width: 150px;
+}
+
+    /* jaune #FFCC00 bleu #00407E #2a6bad  rgb(151, 77, 219) rgb(188, 141, 232) */

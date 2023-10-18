@@ -1,4 +1,4 @@
-<h1> Lister / Modifier / Supprimer</h1>
+<h1> Lister / Modifier / Archiver / Supprimer</h1>
 
 <a href="/controllers/dashboard/vehicle/create_vehicle_ctrl.php">Ajouter une catégorie</a>
 
@@ -35,9 +35,6 @@
                         <?php } else { ?>
                         <td></td>
                         <?php } ?>
-                        <!-- <td><?= $vehicle->created_at ?></td> -->
-                        <!-- <td><?= $vehicle->updated_at ?></td> -->
-                        <!-- <td><?= $vehicle->deleted_at ?></td> -->
                         <td><a href="/controllers/dashboard/vehicle/update_vehicle_ctrl.php?id_vehicles=<?= $vehicle->id_vehicles ?>">
                                 <img src="/public/assets/img/btnwrite.png" alt="stylo">
                             </a>
