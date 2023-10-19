@@ -117,7 +117,7 @@ class Vehicle
         $this->id_types = $id_types;
     }
     //fonction pour ajouter un objet
-    public function insert():bool
+    public function insert(): bool
     {
         $pdo = connect();
         $sql = 'INSERT INTO `vehicles` (  `brand` , `model` , `registration` , `mileage` , `id_types` , `picture` ) 
@@ -141,59 +141,60 @@ class Vehicle
         // ou
         // return ($rowCount >0) ? true : false;
     }
-    
 
-    //fonction qui affiche tout
-    // public static function get_all():array
-    // {
-    //     $pdo = connect();
-    //     $sql = 'SELECT *
-    //     FROM `vehicles`
-    //     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`;';
-    //     $sth = $pdo->query($sql);
-    //     $result = $sth->fetchAll();
-    //     return $result;
-    // }
-
-    //fonction qui affiche tout et qui classe 
-    //     public static function get_all(string $order):array
-    // {
-    //     $pdo = connect();
-    //     $sql = "SELECT *
-    //     FROM `vehicles`
-    //     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
-    //     ORDER BY `vehicles`.`brand` $order, `vehicles`.`model` $order, `types`.`type` $order ;";
-    //     $sth = $pdo->query($sql);
-    //     // $sth->bindValue(':order', $order);
-    //     $sth->execute();
-    //     $result = $sth->fetchAll();
-    //     return $result;
-    // }
-
-    //fonction qui affiche que si la colonne deleted at et vide
-    public static function get_all($column, $order): array
+    //fonction qui affiche que si la colonne deleted at et vide on entre 
+    // des valeur par default pour que ca ne soit plus obligatoire entre parenthese
+    public static function get_all(string $column = "type", string $order = "ASC",$id_types = null): array
     {
-        $table = ($column == 'type') ? 'types' : 'vehicles' ;
+        $table = ($column == 'type') ? 'types' : 'vehicles';
         $pdo = connect();
-        $sql = "SELECT *
-    FROM `vehicles`
-    INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
-    WHERE `vehicles`.`deleted_at` IS NULL
-    ORDER by `$table`.`$column` $order;";
-        $sth = $pdo->query($sql);
+
+        $sql = $sql = "SELECT *
+        FROM `vehicles`
+        INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
+        WHERE `vehicles`.`deleted_at` IS NULL";
+        if (!is_null($id_types)) {
+            $sql = $sql ." AND `types`.`id_types` = :id_types";
+        }
+        $sql = $sql ." ORDER by `$table`.`$column` $order";
+
+
+        $sth = $pdo->prepare($sql);
+        if (!is_null($id_types)) {
+            $sth->bindValue(':id_types', $id_types, PDO::PARAM_INT);
+        }
+        $sth->execute();
         $result = $sth->fetchAll();
         return $result;
     }
+
+    // morceau qui remplace la requete 
+    // if (is_null($id_types)) {
+    //         $sql = "SELECT *
+    //         FROM `vehicles`
+    //         INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
+    //         WHERE `vehicles`.`deleted_at` IS NULL
+    //         ORDER by `$table`.`$column` $order;";
+    // } else {
+    //         $sql = "SELECT *
+    //         FROM `vehicles`
+    //         INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
+    //         WHERE `vehicles`.`deleted_at` IS NULL AND `types`.`id_types` = :id_types
+    //         ORDER by `$table`.`$column` $order;";
+    // }
+
 
     // fonction qui permet de recuperer une catégorie précise
     public static function get(int $id_vehicles): object
     {
         $pdo = connect();
-        $sql = 'SELECT * FROM `vehicles` WHERE `id_vehicles` = :id_vehicles ;';
+        $sql = 'SELECT * FROM `vehicles` 
+        INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
+        WHERE `id_vehicles` = :id_vehicles;';
         $sth = $pdo->prepare($sql);
         $sth->bindValue(':id_vehicles', $id_vehicles, PDO::PARAM_INT);
         $sth->execute();
-        $result = $sth->fetch(PDO::FETCH_OBJ);
+        $result = $sth->fetch();
         return $result;
     }
 

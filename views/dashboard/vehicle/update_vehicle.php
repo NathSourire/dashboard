@@ -4,7 +4,9 @@
 
     <div>
         <label class="form-label" for="brand">Marque</label>
-        <input class="form-control" type="text" id="brand" name="brand" value="<?= isset($vehicleObj->brand) ? htmlspecialchars($vehicleObj->brand) : '' ?>" pattern="<?= REGEX_NAME ?>" required>
+        <input class="form-control" type="text" id="brand" name="brand" 
+        value="<?= isset($vehicleObj->brand) ? htmlspecialchars($vehicleObj->brand) : '' ?>" 
+        pattern="<?= REGEX_NAME ?>" required>
         <p class="red">
             <?= $errors['brand'] ?? '' ?>
         </p>
@@ -12,7 +14,9 @@
 
     <div>
         <label class="form-label" for="model">Modèle</label>
-        <input class="form-control" type="text" id="model" name="model" value="<?= isset($vehicleObj->model) ? htmlspecialchars($vehicleObj->model) : '' ?>" pattern="<?= REGEX_NAME ?>" required>
+        <input class="form-control" type="text" id="model" name="model" 
+        value="<?= isset($vehicleObj->model) ? htmlspecialchars($vehicleObj->model) : '' ?>" 
+        pattern="<?= REGEX_NAME ?>" required>
         <p class="red">
             <?= $errors['model'] ?? '' ?>
         </p>
@@ -20,7 +24,9 @@
 
     <div>
         <label class="form-label" for="registration">Immatriculation</label>
-        <input class="form-control" type="text" id="registration" name="registration" value="<?= isset($vehicleObj->registration) ? htmlspecialchars($vehicleObj->registration) : '' ?>" pattern="<?= REGEX_MILEAGE ?>" required>
+        <input class="form-control" type="text" id="registration" name="registration" 
+        value="<?= isset($vehicleObj->registration) ? htmlspecialchars($vehicleObj->registration) : '' ?>" 
+        pattern="<?= REGEX_MILEAGE ?>" required>
         <p class="red">
             <?= $errors['registration'] ?? '' ?>
         </p>
@@ -28,7 +34,9 @@
 
     <div>
         <label class="form-label" for="mileage">Kilométrage</label>
-        <input class="form-control" type="text" id="mileage" name="mileage" value="<?= isset($vehicleObj->mileage) ? htmlspecialchars($vehicleObj->mileage) : '' ?>" pattern="<?= REGEX_MILEAGE ?>" required>
+        <input class="form-control" type="text" id="mileage" name="mileage" 
+        value="<?= isset($vehicleObj->mileage) ? htmlspecialchars($vehicleObj->mileage) : '' ?>" 
+        pattern="<?= REGEX_MILEAGE ?>" required>
         <p class="red">
             <?= $errors['mileage'] ?? '' ?>
         </p>

@@ -13,7 +13,7 @@ try {
     $title = 'Lister/Modifier/Supprimer';
 } catch (\Throwable $th) {
 
-    $error = $th->getMessage();
+    $errors = $th->getMessage();
     
     include __DIR__ . '/../../../views/templates/header.php';
     include __DIR__ . '/../../../views/templates/error.php';

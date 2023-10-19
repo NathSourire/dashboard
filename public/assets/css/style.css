@@ -51,5 +51,12 @@ a:hover {
     height: 60px;
     width: 150px;
 }
+.imgsheet {
+    height: 400px;
+    width: 400px;
+}
+.txtCard{
+    font-size: 20px;
+}
 
     /* jaune #FFCC00 bleu #00407E #2a6bad  rgb(151, 77, 219) rgb(188, 141, 232) */
