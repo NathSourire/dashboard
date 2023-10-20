@@ -6,5 +6,4 @@
     define('EXTENSION', ['JPG'=>'image/jpeg', 'PNG'=>'image/png', 'GIF'=>'image/gif', 'WEBP'=>'image/webp']);
     define('FILESIZE',[3*1000*1000]);
     define('COLUMNS', ['type', 'brand', 'model', 'mileage']);
-//     define('TYPES', ['Combat','Vol','Poison','Sol','Roche','Insecte','Spectre','Acier','Feu','Eau','Plante',
-// 'Electrik','Psy','Glace','Dragon','Ténébres']);
+    define('NB_LINES_PAGE',[9]);
