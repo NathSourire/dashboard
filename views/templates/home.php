@@ -1,10 +1,9 @@
 <h1>Accueil</h1>
 
-
-<form enctype="multipart/form-data" method="get" action=""  >
+<form class="d-flex" enctype="multipart/form-data" method="get">
     <label class="form-label " for="type"></label>
-    <select class="form-select" id="type" name="type">
-        <option selected disabled>Catégorie</option>
+    <select class="form-select me-2" id="type" name="type">
+        <option value="0">Toutes les Catégories</option>
         <?php
         foreach ($types as $type) { ?>
             <!-- ternaire permettant la recupe du select -->
@@ -14,11 +13,18 @@
             </option>
         <?php } ?>
     </select>
-    <button class="my-2" type="submit">Envoyer!</button>
+    <button class="btn btn-warning me-2" type="submit">Envoyer</button>
+
+    <input class="form-control me-2" type="search" placeholder="recherche" aria-label="Search" id="searchall" name="searchall" value="" >
+    <button class="btn btn-warning" type="submit" >Recherche</button>
+
     <p class="red">
         <?= $errors['type'] ?? '' ?>
     </p>
 </form>
+
+
+
 <div class="row row-cols-1 row-cols-md-4 gap-5 my-5">
     <?php
     foreach ($vehicles as $vehicle) {
@@ -32,17 +38,13 @@
                 <?php } ?>
                 <!-- <img class="img-fluid" src="/public/uploads/vehicles/<?= ($vehicle->picture == true) ? $vehicle->picture : '/public/assets/img/pokemon97.webp' ?>" alt=""> -->
                 <h5 class="card-title my-3 "><?= $vehicle->id_vehicles ?></h5>
-                <li class="card-text"><?= 'Catégorie : ' . $vehicle->type  ?></li>
-                <li class="card-text"><?= 'Marque : ' . $vehicle->brand ?></li>
-                <li class="card-text"><?= 'Model : ' . $vehicle->model ?></li>
-                <li class="card-text"><?= 'Immatriculation : ' . $vehicle->registration ?></li>
-                <li class="card-text"><?= 'Kilométrage : ' . $vehicle->mileage ?></li>
+                <li ><?= 'Catégorie : ' . $vehicle->type  ?></li>
+                <li ><?= 'Marque : ' . $vehicle->brand ?></li>
+                <li ><?= 'Model : ' . $vehicle->model ?></li>
+                <li ><?= 'Immatriculation : ' . $vehicle->registration ?></li>
+                <li ><?= 'Kilométrage : ' . $vehicle->mileage ?></li>
         </div></a>
         <br>
     <?php } ?>
 </div>
 </div>
-
-
-
-

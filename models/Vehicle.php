@@ -144,7 +144,7 @@ class Vehicle
 
     //fonction qui affiche que si la colonne deleted at et vide on entre 
     // des valeur par default pour que ca ne soit plus obligatoire entre parenthese
-    public static function get_all(string $column = "type", string $order = "ASC",$id_types = null): array
+    public static function get_all(string $column = "type", string $order = "ASC",int $id_types = 0,string $searchall = null): array
     {
         $table = ($column == 'type') ? 'types' : 'vehicles';
         $pdo = connect();
@@ -153,15 +153,25 @@ class Vehicle
         FROM `vehicles`
         INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
         WHERE `vehicles`.`deleted_at` IS NULL";
-        if (!is_null($id_types)) {
+
+        if (!is_null($searchall)) {
+            $sql = $sql ." AND (`brand` LIKE :searchall OR `model` LIKE :searchall)" ;
+        }
+
+
+        if ($id_types != 0) {
             $sql = $sql ." AND `types`.`id_types` = :id_types";
         }
         $sql = $sql ." ORDER by `$table`.`$column` $order";
 
-
         $sth = $pdo->prepare($sql);
-        if (!is_null($id_types)) {
+
+        if ($id_types != 0) {
             $sth->bindValue(':id_types', $id_types, PDO::PARAM_INT);
+        }
+
+        if (!is_null($searchall)){
+            $sth->bindValue(':searchall', '%' . $searchall . '%', PDO::PARAM_STR);
         }
         $sth->execute();
         $result = $sth->fetchAll();
