@@ -82,7 +82,7 @@ try {
             
         } catch (\Throwable $th) {
             $errors ['picture']= $th->getMessage();
-            var_dump($th);
+            
         }
 
         if (empty($errors)) {
@@ -94,10 +94,10 @@ try {
             $newVehicle->set_id_types($id_types);
             $newVehicle->set_picture($newnamefile);
             $saved = $newVehicle->insert();
-            // if ($saved == true) {
-            //     header('location: /controllers/dashboard/vehicle/list_vehicle_ctrl.php');
-            //     die;
-            // }
+            if ($saved == true) {
+                header('location: /controllers/dashboard/vehicle/list_vehicle_ctrl.php');
+                die;
+            }
         }
 
     }

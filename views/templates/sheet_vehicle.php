@@ -7,12 +7,12 @@
         <?php } ?>
     </div>
     <div class="card-body txtCard p-5">
-        <li><?= ' Catégorie : ' . $vehicle->type  ?></li>
-        <li><?= ' Marque : ' . $vehicle->brand ?></li>
-        <li><?= ' Model : ' . $vehicle->model ?></li>
-        <li><?= ' Immatriculation : ' . $vehicle->registration ?></li>
-        <li><?= ' Kilométrage : ' . $vehicle->mileage ?></li>
-        <li><?= ' Date de création ' . date("d/m/Y H:i", strtotime($vehicle->created_at)) ?></li>
-        <li><?= ' Date de modification ' . date("d/m/Y H:i", strtotime($vehicle->updated_at)) ?></li>
+        <li class=" d-flex justify-content-around " ><?= ' Catégorie : ' . $vehicle->type  ?></li>
+        <li class=" d-flex justify-content-around " ><?= ' Marque : ' . $vehicle->brand ?></li>
+        <li class=" d-flex justify-content-around " ><?= ' Model : ' . $vehicle->model ?></li>
+        <li class=" d-flex justify-content-around " ><?= ' Immatriculation : ' . $vehicle->registration ?></li>
+        <li class=" d-flex justify-content-around " ><?= ' Kilométrage : ' . $vehicle->mileage ?></li>
+        <li class=" d-flex justify-content-around " ><?= ' Date de création ' . date("d/m/Y H:i", strtotime($vehicle->created_at)) ?></li>
+        <li class=" d-flex justify-content-around " ><?= ' Date de modification ' . date("d/m/Y H:i", strtotime($vehicle->updated_at)) ?></li>
     </div>
 </div>
