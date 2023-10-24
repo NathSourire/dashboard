@@ -21,7 +21,7 @@
 
 <div class="row row-cols-1 row-cols-md-3  m-3 my-5">
     <?php
-    foreach ($vehicles as $vehicle) {
+    foreach ($totalVehicles as $vehicle) {
     ?>
         <div class="py-3" >
             <a href="/controllers/sheet_vehicle_ctrl.php?id_vehicles=<?= $vehicle->id_vehicles ?>">
@@ -32,7 +32,7 @@
                         <img class="img-fluid" src="/public/assets/img/pokemon97.webp" alt="Groupe de pokemon">
                     <?php } ?>
                     <!-- <img class="img-fluid" src="/public/uploads/vehicles/<?= ($vehicle->picture == true) ? $vehicle->picture : '/public/assets/img/pokemon97.webp' ?>" alt=""> -->
-                    <h5 class="card-title my-3 d-flex justify-content-center "><?= $vehicle->id_vehicles ?></h5>
+                    <h4 class="card-title my-3 d-flex justify-content-center "><?= $vehicle->name_vehicle ?></h4>
                     <li class="d-flex justify-content-around"><?= 'Catégorie : ' . $vehicle->type  ?></li>
                     <li class="d-flex justify-content-around"><?= 'Marque : ' . $vehicle->brand ?></li>
                     <li class="d-flex justify-content-around"><?= 'Model : ' . $vehicle->model ?></li>
@@ -44,7 +44,7 @@
     <?php } ?>
 </div>
 
-<nav class="d-flex justify-content-center " aria-label="Page navigation example">
+<!-- <nav class="d-flex justify-content-center " aria-label="Page navigation example">
     <ul class="pagination">
         <li class="page-item">
             <a class="page-link" aria-label="Previous">précedente</a>
@@ -55,6 +55,21 @@
         <?php } ?>
         <li class="page-item">
             <a class="page-link" aria-label="Next">Suivante</a>
+        </li>
+    </ul>
+</nav> -->
+<nav class="d-flex justify-content-center" aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item <?php echo ($page <= 1) ? 'disabled' : ''; ?>">
+            <a class="page-link" aria-label="Previous" href="?type=<?= $id_type ?>&searchall=<?= $searchall ?>&page=<?= $page - 1 ?>">précédente</a>
+        </li>
+        <?php for ($currentPage = 1; $currentPage <= $nbPages; $currentPage++) {
+            $active = ($currentPage == $page) ? 'active' : ""; 
+        ?>
+            <li class="page-item <?= $active ?>"><a class="page-link" href="?type=<?= $id_type ?>&searchall=<?= $searchall ?>&page=<?= $currentPage ?>"><?= $currentPage ?></a></li>
+        <?php } ?>
+        <li class="page-item <?php echo ($page >= $nbPages) ? 'disabled' : ''; ?>">
+            <a class="page-link" aria-label="Next" href="?type=<?= $id_type ?>&searchall=<?= $searchall ?>&page=<?= $page + 1 ?>">suivante</a>
         </li>
     </ul>
 </nav>

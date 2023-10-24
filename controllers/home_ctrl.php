@@ -11,7 +11,7 @@ try {
     $id_types = intval(filter_input(INPUT_GET, 'type', FILTER_SANITIZE_NUMBER_INT));
     $page = intval(filter_input(INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT));
     
-    $totalVehicles = Vehicle::get_pagination(page: $page);
+    $totalVehicles = Vehicle::get_all_pagination(id_types: $id_types, searchall: $searchall, page: $page, all: true);
     $nbVehicles = count($totalVehicles);
     $nbPages = ceil($nbVehicles / NB_ELEMENTS_PER_PAGE);
     
@@ -19,7 +19,7 @@ try {
         $page = 1;
     }
     //affiche le tableau des véhicules 
-    $vehicles = Vehicle::get_all(id_types: $id_types, searchall: $searchall);
+    //$vehicles = Vehicle::get_all();
     $types = Type::get_all();
     $errors = [];
 
@@ -27,7 +27,6 @@ try {
 } catch (\Throwable $th) {
 
     $errors = $th->getMessage();
-    var_dump($th);
 
 
     include __DIR__ . '/../views/templates/header.php';

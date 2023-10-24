@@ -118,7 +118,6 @@ class Vehicle
     {
         $this->name_vehicle = $name_vehicle;
     }
-
     //fonction pour ajouter un objet
     public function insert(): bool
     {
@@ -152,7 +151,6 @@ class Vehicle
     {
         $table = ($column == 'type') ? 'types' : 'vehicles';
         //$page = offset 0 page 1 offset 10 page 2 offset 20 page 3 etc ...
-        // $offset = ($page - 1) * NB_ELEMENTS_PER_PAGE;
         $pdo = connect();
         $sql = $sql = "SELECT * 
         FROM `vehicles` 
@@ -166,10 +164,6 @@ class Vehicle
         }
         $sql = $sql ." ORDER by `$table`.`$column` $order" ;
 
-        // if ($all == false){
-        //     $sql = $sql . " LIMIT :limit OFFSET :offset ;";
-        // }
-
         $sth = $pdo->prepare($sql);
         if ($id_types != 0) {
             $sth->bindValue(':id_types', $id_types, PDO::PARAM_INT);
@@ -178,11 +172,6 @@ class Vehicle
         if (!empty($searchall)){
             $sth->bindValue(':searchall', '%' . $searchall . '%', PDO::PARAM_STR);
         }
-
-        // if ($all == false){
-        // $sth->bindValue(':limit', NB_ELEMENTS_PER_PAGE, PDO::PARAM_INT);
-        // $sth->bindValue(':offset', $offset, PDO::PARAM_INT);
-        // }
 
         $sth->execute();
         // $result = $sth->fetchAll();
@@ -193,23 +182,48 @@ class Vehicle
         
     }
 
-    public static function get_pagination(int $page = 1): array
+    public static function get_all_pagination(string $column = "type", string $order = "ASC",int $id_types = 0,string $searchall = '', int $page = 1, bool $all = false): array
     {
-        $pdo = connect();
+        $table = ($column == 'type') ? 'types' : 'vehicles';
+        //$page = offset 0 page 1 offset 10 page 2 offset 20 page 3 etc ...
         $offset = max(0, ($page - 1) * NB_ELEMENTS_PER_PAGE);
-        $sql = "SELECT * 
+        $pdo = connect();
+        $sql = $sql = "SELECT * 
         FROM `vehicles` 
         INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
-        WHERE `vehicles`.`deleted_at` IS NULL
-        LIMIT :limit OFFSET :offset ;";
+        WHERE `vehicles`.`deleted_at` IS NULL";
+        if (!empty($searchall)) {
+            $sql = $sql ." AND (`brand` LIKE :searchall OR `model` LIKE :searchall)";
+        }
+        if ($id_types != 0) {
+            $sql = $sql ." AND `types`.`id_types` = :id_types";
+        }
+        $sql = $sql ." ORDER by `$table`.`$column` $order" ;
+
+        if ($all == false){
+            $sql = $sql . " LIMIT :limit OFFSET :offset ;";
+        }
+
         $sth = $pdo->prepare($sql);
+        if ($id_types != 0) {
+            $sth->bindValue(':id_types', $id_types, PDO::PARAM_INT);
+        }
+
+        if (!empty($searchall)){
+            $sth->bindValue(':searchall', '%' . $searchall . '%', PDO::PARAM_STR);
+        }
+
+        if ($all == false){
         $sth->bindValue(':limit', NB_ELEMENTS_PER_PAGE, PDO::PARAM_INT);
         $sth->bindValue(':offset', $offset, PDO::PARAM_INT);
-        $sth->execute();
-        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
-            return $result;
-    }
+        }
 
+        $sth->execute();
+        $result = $sth->fetchAll();
+            return $result;
+
+        
+    }
 
     // morceau qui remplace la requete 
     // if (is_null($id_types)) {
@@ -246,7 +260,7 @@ class Vehicle
     {
         $pdo = connect();
         $sql = 'UPDATE `vehicles` SET `brand` = :brand, `model` = :model, `registration` = :registration,
-        `mileage` = :mileage, `id_types` = :id_types, `id_vehicles` = :id_vehicles, `picture` = :picture, `name_vehicle` = :name_vehicle  
+        `mileage` = :mileage, `id_types` = :id_types, `id_vehicles` = :id_vehicles, `picture` = :picture  
         WHERE `id_vehicles` = :id_vehicles ;';
         $sth = $pdo->prepare($sql);
         $sth->bindValue(':brand', $this->get_brand(), PDO::PARAM_STR);
@@ -256,7 +270,6 @@ class Vehicle
         $sth->bindValue(':id_types', $this->get_id_types(), PDO::PARAM_INT);
         $sth->bindValue(':id_vehicles', $this->get_id_vehicles(), PDO::PARAM_INT);
         $sth->bindValue(':picture', $this->get_picture(), PDO::PARAM_STR);
-        $sth->bindValue(':name_vehicle', $this->get_name_vehicle(), PDO::PARAM_STR);
         $sth->execute();
         return (bool) $sth->rowCount();
     }
