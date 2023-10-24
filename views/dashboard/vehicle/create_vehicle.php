@@ -1,8 +1,17 @@
 <h1> Créer /Ajouter</h1>
 
 <a href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php">Liste des véhicules</a>
+<hr>
+<form class=" offset-1 offset-md-2 col-10 col-md-8" enctype="multipart/form-data" method="post" novalidate>
 
-<form enctype="multipart/form-data" method="post" novalidate>
+    <div>
+        <label class="form-label" for="name_vehicle">Nom du véhicule</label>
+        <input class="form-control" type="text" id="name_vehicle" name="name_vehicle" value="<?= isset($vehicleObj->name_vehicle) ? htmlspecialchars($vehicleObj->name_vehicle) : '' ?>" pattern="<?= REGEX_NAME ?>" required>
+        <p class="red">
+            <?= $errors['name_vehicle'] ?? '' ?>
+        </p>
+    </div>
+
     <div>
         <label class="form-label" for="brand">Marque *</label>
         <input class="form-control" type="text" id="brand" name="brand" value="" pattern="<?= REGEX_NAME ?>" required placeholder="Ex: Statik">
@@ -21,7 +30,7 @@
 
     <div>
         <label class="form-label" for="registration">Immatriculation *</label>
-        <input class="form-control" type="text" id="registration" name="registration" value="" pattern="<?= REGEX_MILEAGE ?>" required placeholder="Ex: 82exp" > 
+        <input class="form-control" type="text" id="registration" name="registration" value="" pattern="<?= REGEX_MILEAGE ?>" required placeholder="Ex: 82exp">
         <p class="red">
             <?= $errors['registration'] ?? '' ?>
         </p>
@@ -47,11 +56,11 @@
     <div>
         <label class="form-label" for="type">Catégorie *</label>
         <select class="form-select" id="type" name="type">
-            <option selected disabled >Catégorie</option>
+            <option selected disabled>Catégorie</option>
             <?php
             foreach ($types as $type) { ?>
-                <option value="<?= $type->id_types;?>">
-                    <?= $type->type;?>
+                <option value="<?= $type->id_types; ?>">
+                    <?= $type->type; ?>
                 </option>
             <?php } ?>
         </select>

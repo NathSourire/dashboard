@@ -1,12 +1,13 @@
 <?php  
 require_once __DIR__ . '/../../../models/Vehicle.php';
 require_once __DIR__ . '/../../../config/regex.php';
+require_once __DIR__ . '/../../../models/Rent.php';
 
 try {
 
     $id_vehicles = intval(filter_input(INPUT_GET, 'id_vehicles', FILTER_SANITIZE_NUMBER_INT));
-    
     $errors = [];
+
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     if (empty($email)) {

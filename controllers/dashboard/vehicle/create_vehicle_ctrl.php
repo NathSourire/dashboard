@@ -12,6 +12,18 @@ try {
     $errors = [];
 
     if ($_SERVER["REQUEST_METHOD"] == 'POST') {
+
+        // récuperation du nom de voiture nettoyage et validation
+        $name_vehicle = filter_input(INPUT_POST, 'name_vehicle', FILTER_SANITIZE_SPECIAL_CHARS);
+        if (empty($name_vehicle)) {
+            $errors['name_vehicle'] = 'Veuillez entrer une marque ';
+        } else {
+            $isOk = filter_var($name_vehicle, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . REGEX_NAME . '/']]);
+            if (!$isOk) {
+                $errors['name_vehicle'] = 'Veuillez entrer une marque de voiture correct';
+            }
+        }
+
         // récuperation du type de voiture nettoyage et validation
         $brand = filter_input(INPUT_POST, 'brand', FILTER_SANITIZE_SPECIAL_CHARS);
         if (empty($brand)) {
@@ -87,6 +99,7 @@ try {
 
         if (empty($errors)) {
             $newVehicle = new Vehicle();
+            $newVehicle->set_name_vehicle($name_vehicle);
             $newVehicle->set_brand($brand);
             $newVehicle->set_model($model);
             $newVehicle->set_registration($registration);

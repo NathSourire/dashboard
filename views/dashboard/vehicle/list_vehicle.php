@@ -6,6 +6,7 @@
     <div class="row">
         <table class="table tablelist">
             <thead>
+                <th>Nom du véhicule</th>
                 <th><a href="?column=type&order=<?= ($order == 'DESC') ? 'ASC' : 'DESC'; ?>">Catégorie
                 <img src="/public/assets/img/flèche_haut.png" alt="fleche vers le haut"><img src="/public/assets/img/flèche_bas.png" alt="fleche vers le bas"></a></th>                
                 <th><a href="?column=brand&order=<?= ($order == 'DESC') ? 'ASC' : 'DESC'; ?>">Marque
@@ -25,6 +26,7 @@
                 ?>
                     <tr>
                         <!-- <td title="<?= 'date de création '.$vehicle->created_at.' date de mise à jour '. $vehicle->updated_at ?>"><?= $vehicle->type ?></td> -->
+                        <td><?= $vehicle->name_vehicle ?></td>
                         <td title="<?= 'date de création '. date("d/m/Y H:i", strtotime($vehicle->created_at)) .' date de mise à jour '. date("d/m/Y H:i", strtotime($vehicle->updated_at)) ?>"><?= $vehicle->type ?></td>
                         <td><?= $vehicle->brand ?></td>
                         <td><?= $vehicle->model ?></td>
@@ -63,6 +65,7 @@
         <h3>Les véhicules archivés</h3>
         <table class="table tablearchived">
             <thead>
+                <th>Nom du véhicule</th>
                 <th>Catégorie</th>                
                 <th>Marque</th>
                 <th>Modèle</th>
@@ -82,6 +85,7 @@
 
                 ?>
                     <tr>
+                        <td><?= $vehicle->name_vehicle ?></td>
                         <td><?= $vehicle->type ?></td>
                         <td><?= $vehicle->brand ?></td>
                         <td><?= $vehicle->model ?></td>

@@ -13,6 +13,7 @@ class Vehicle
     private DateTime $updated_at;
     private ?DateTime $deleted_at;
     private int $id_types;
+    private string $name_vehicle;
 
     public function get_id_vehicles(): int
     {
@@ -109,12 +110,21 @@ class Vehicle
         $this->id_types = $id_types;
     }
 
+    public function get_name_vehicle(): string
+    {
+        return $this->name_vehicle;
+    }
+    public function set_name_vehicle(string $name_vehicle)
+    {
+        $this->name_vehicle = $name_vehicle;
+    }
+
     //fonction pour ajouter un objet
     public function insert(): bool
     {
         $pdo = connect();
-        $sql = 'INSERT INTO `vehicles` (  `brand` , `model` , `registration` , `mileage` , `id_types` , `picture` ) 
-            VALUES ( :brand , :model , :registration , :mileage , :id_types , :picture ) ;';
+        $sql = 'INSERT INTO `vehicles` (  `brand` , `model` , `registration` , `mileage` , `id_types` , `picture` , `name_vehicle` ) 
+            VALUES ( :brand , :model , :registration , :mileage , :id_types , :picture , :name_vehicle) ;';
         $sth = $pdo->prepare($sql);
         $sth->bindValue(':brand', $this->get_brand(), PDO::PARAM_STR);
         $sth->bindValue(':model', $this->get_model(), PDO::PARAM_STR);
@@ -122,6 +132,7 @@ class Vehicle
         $sth->bindValue(':mileage', $this->get_mileage(), PDO::PARAM_INT);
         $sth->bindValue(':id_types', $this->get_id_types(), PDO::PARAM_INT);
         $sth->bindValue(':picture', $this->get_picture(), PDO::PARAM_STR);
+        $sth->bindValue(':name_vehicle', $this->get_name_vehicle(), PDO::PARAM_STR);
         $sth->execute();
         return (bool) $sth->rowCount();
         // ou 
@@ -234,7 +245,7 @@ class Vehicle
     {
         $pdo = connect();
         $sql = 'UPDATE `vehicles` SET `brand` = :brand, `model` = :model, `registration` = :registration,
-        `mileage` = :mileage, `id_types` = :id_types, `id_vehicles` = :id_vehicles, `picture` = :picture  
+        `mileage` = :mileage, `id_types` = :id_types, `id_vehicles` = :id_vehicles, `picture` = :picture, `name_vehicle` = :name_vehicle  
         WHERE `id_vehicles` = :id_vehicles ;';
         $sth = $pdo->prepare($sql);
         $sth->bindValue(':brand', $this->get_brand(), PDO::PARAM_STR);
@@ -244,6 +255,7 @@ class Vehicle
         $sth->bindValue(':id_types', $this->get_id_types(), PDO::PARAM_INT);
         $sth->bindValue(':id_vehicles', $this->get_id_vehicles(), PDO::PARAM_INT);
         $sth->bindValue(':picture', $this->get_picture(), PDO::PARAM_STR);
+        $sth->bindValue(':name_vehicle', $this->get_name_vehicle(), PDO::PARAM_STR);
         $sth->execute();
         return (bool) $sth->rowCount();
     }

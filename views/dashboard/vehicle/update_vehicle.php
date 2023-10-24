@@ -1,12 +1,18 @@
 <h1> Modifier</h1>
 
-<form enctype="multipart/form-data" method="post" novalidate>
+<form class=" offset-1 offset-md-2 col-10 col-md-8" enctype="multipart/form-data" method="post" novalidate>
+
+    <div>
+        <label class="form-label" for="name_vehicle">Nom du véhicule</label>
+        <input class="form-control" type="text" id="name_vehicle" name="name_vehicle" value="<?= isset($vehicleObj->name_vehicle) ? htmlspecialchars($vehicleObj->name_vehicle) : '' ?>" pattern="<?= REGEX_NAME ?>" required>
+        <p class="red">
+            <?= $errors['name_vehicle'] ?? '' ?>
+        </p>
+    </div>
 
     <div>
         <label class="form-label" for="brand">Marque</label>
-        <input class="form-control" type="text" id="brand" name="brand" 
-        value="<?= isset($vehicleObj->brand) ? htmlspecialchars($vehicleObj->brand) : '' ?>" 
-        pattern="<?= REGEX_NAME ?>" required>
+        <input class="form-control" type="text" id="brand" name="brand" value="<?= isset($vehicleObj->brand) ? htmlspecialchars($vehicleObj->brand) : '' ?>" pattern="<?= REGEX_NAME ?>" required>
         <p class="red">
             <?= $errors['brand'] ?? '' ?>
         </p>
@@ -14,9 +20,7 @@
 
     <div>
         <label class="form-label" for="model">Modèle</label>
-        <input class="form-control" type="text" id="model" name="model" 
-        value="<?= isset($vehicleObj->model) ? htmlspecialchars($vehicleObj->model) : '' ?>" 
-        pattern="<?= REGEX_NAME ?>" required>
+        <input class="form-control" type="text" id="model" name="model" value="<?= isset($vehicleObj->model) ? htmlspecialchars($vehicleObj->model) : '' ?>" pattern="<?= REGEX_NAME ?>" required>
         <p class="red">
             <?= $errors['model'] ?? '' ?>
         </p>
@@ -24,9 +28,7 @@
 
     <div>
         <label class="form-label" for="registration">Immatriculation</label>
-        <input class="form-control" type="text" id="registration" name="registration" 
-        value="<?= isset($vehicleObj->registration) ? htmlspecialchars($vehicleObj->registration) : '' ?>" 
-        pattern="<?= REGEX_MILEAGE ?>" required>
+        <input class="form-control" type="text" id="registration" name="registration" value="<?= isset($vehicleObj->registration) ? htmlspecialchars($vehicleObj->registration) : '' ?>" pattern="<?= REGEX_MILEAGE ?>" required>
         <p class="red">
             <?= $errors['registration'] ?? '' ?>
         </p>
@@ -34,9 +36,7 @@
 
     <div>
         <label class="form-label" for="mileage">Kilométrage</label>
-        <input class="form-control" type="text" id="mileage" name="mileage" 
-        value="<?= isset($vehicleObj->mileage) ? htmlspecialchars($vehicleObj->mileage) : '' ?>" 
-        pattern="<?= REGEX_MILEAGE ?>" required>
+        <input class="form-control" type="text" id="mileage" name="mileage" value="<?= isset($vehicleObj->mileage) ? htmlspecialchars($vehicleObj->mileage) : '' ?>" pattern="<?= REGEX_MILEAGE ?>" required>
         <p class="red">
             <?= $errors['mileage'] ?? '' ?>
         </p>
@@ -57,8 +57,8 @@
             <option selected disabled>Catégorie</option>
             <?php
             foreach ($types as $type) { ?>
-            <!-- ternaire permettant la recupe du select -->
-            <?php $isSelected = ($vehicleObj->id_types == $type->id_types) ? 'selected' : ''; ?>
+                <!-- ternaire permettant la recupe du select -->
+                <?php $isSelected = ($vehicleObj->id_types == $type->id_types) ? 'selected' : ''; ?>
                 <option <?= $isSelected  ?> value="<?= $type->id_types; ?>">
                     <?= $type->type; ?>
                 </option>
@@ -74,4 +74,3 @@
     </div>
     <p class="red"><?= isset($saved) ? 'Catégorie modifiée' : '' ?></p>
 </form>
-
