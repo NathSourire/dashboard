@@ -11,7 +11,7 @@
     <?php if (isset($script)) {?>
         <script defer src="/public/assets/js/<?= $script?>"></script>
     <?php } ?>    
-    <title>Projet Dashbord <?= ' ' . $title ?> </title>
+    <title>Projet Dashbord</title>
 </head>
 
 

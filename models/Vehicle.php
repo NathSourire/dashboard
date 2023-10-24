@@ -148,7 +148,7 @@ class Vehicle
 
     //fonction qui affiche que si la colonne deleted at et vide on entre 
     // des valeur par default pour que ca ne soit plus obligatoire entre parenthese
-    public static function get_all(string $column = "type", string $order = "ASC",int $id_types = 0,string $searchall = '',int $page = 1, bool $all = false): array
+    public static function get_all(string $column = "type", string $order = "ASC",int $id_types = 0,string $searchall = ''): array
     {
         $table = ($column == 'type') ? 'types' : 'vehicles';
         //$page = offset 0 page 1 offset 10 page 2 offset 20 page 3 etc ...
@@ -193,21 +193,22 @@ class Vehicle
         
     }
 
-    // public static function get_pagination(int $page = 1, bool $all = false): array
-    // {
-    //     $pdo = connect();
-    //     $offset = ($page - 1) * NB_ELEMENTS_PER_PAGE;
-    //     $sql = "SELECT * 
-    //     FROM `vehicles` 
-    //     INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
-    //     WHERE `vehicles`.`deleted_at` IS NULL
-    //     LIMIT :limit OFFSET :offset ;";
-    //     $sth->bindValue(':limit', NB_ELEMENTS_PER_PAGE, PDO::PARAM_INT);
-    //     $sth->bindValue(':offset', $offset, PDO::PARAM_INT);
-    //     $sth->execute();
-    //     $result = $sth->fetchAll();
-    //         return $result;
-    // }
+    public static function get_pagination(int $page = 1): array
+    {
+        $pdo = connect();
+        $offset = max(0, ($page - 1) * NB_ELEMENTS_PER_PAGE);
+        $sql = "SELECT * 
+        FROM `vehicles` 
+        INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
+        WHERE `vehicles`.`deleted_at` IS NULL
+        LIMIT :limit OFFSET :offset ;";
+        $sth = $pdo->prepare($sql);
+        $sth->bindValue(':limit', NB_ELEMENTS_PER_PAGE, PDO::PARAM_INT);
+        $sth->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $sth->execute();
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+    }
 
 
     // morceau qui remplace la requete 
