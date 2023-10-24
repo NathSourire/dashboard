@@ -23,7 +23,7 @@
     <?php
     foreach ($vehicles as $vehicle) {
     ?>
-        <div>
+        <div class="py-3" >
             <a href="/controllers/sheet_vehicle_ctrl.php?id_vehicles=<?= $vehicle->id_vehicles ?>">
                 <div class="card border-3 border-warning bg-primary justify-content-center h-100 text-warning col">
                     <?php if ($vehicle->picture) { ?>
@@ -44,7 +44,7 @@
     <?php } ?>
 </div>
 
-<nav aria-label="Page navigation example">
+<nav class="d-flex justify-content-center " aria-label="Page navigation example">
     <ul class="pagination">
         <li class="page-item">
             <a class="page-link" aria-label="Previous">précedente</a>

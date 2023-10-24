@@ -15,7 +15,7 @@
             <li class="d-flex justify-content-around"><?= ' Kilométrage : ' . $vehicle->mileage ?></li>
             <!-- <li class="d-flex justify-content-around"><?= ' Date de création ' . date("d/m/Y H:i", strtotime($vehicle->created_at)) ?></li>
             <li class="d-flex justify-content-around"><?= ' Date de modification ' . date("d/m/Y H:i", strtotime($vehicle->updated_at)) ?></li> -->
-            <button class="btn btn-primary my-5 text-warning" type="submit"><a href="/controllers/dashboard/rents/create_rent_ctrl.php?page=<?= $vehicle->id_vehicles ?>">Louer !</a></button>
+            <div class="d-flex justify-content-center"><button class="btn btn-primary my-5 text-warning" type="submit"><a href="/controllers/dashboard/rents/create_rent_ctrl.php?page=<?= $vehicle->id_vehicles ?>">Louer !</a></button></div>
         </div>
     </div>
 </form>
