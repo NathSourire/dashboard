@@ -149,7 +149,7 @@ class Vehicle
 
     //fonction qui affiche que si la colonne deleted at et vide on entre 
     // des valeur par default pour que ca ne soit plus obligatoire entre parenthese
-    public static function get_all(string $column = "type", string $order = "ASC",int $id_types = 0,string $searchall = '', int $page = 1, bool $all = false): array
+    public static function get_all(string $column = "type", string $order = "ASC", int $id_types = 0, string $searchall = '', int $page = 1, bool $all = false): array
     {
         $table = ($column == 'type') ? 'types' : 'vehicles';
         //$page = offset 0 page 1 offset 10 page 2 offset 20 page 3 etc ...
@@ -160,57 +160,12 @@ class Vehicle
         INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
         WHERE `vehicles`.`deleted_at` IS NULL";
         if (!empty($searchall)) {
-            $sql = $sql ." AND (`brand` LIKE :searchall OR `model` LIKE :searchall)";
+            $sql = $sql . " AND (`brand` LIKE :searchall OR `model` LIKE :searchall)";
         }
         if ($id_types != 0) {
-            $sql = $sql ." AND `types`.`id_types` = :id_types";
+            $sql = $sql . " AND `types`.`id_types` = :id_types";
         }
-        $sql = $sql ." ORDER by `$table`.`$column` $order" ;
-
-        if ($all == false){
-            $sql = $sql . " LIMIT :limit OFFSET :offset ;";
-        }
-
-        $sth = $pdo->prepare($sql);
-        if ($id_types != 0) {
-            $sth->bindValue(':id_types', $id_types, PDO::PARAM_INT);
-        }
-
-        if (!empty($searchall)){
-            $sth->bindValue(':searchall', '%' . $searchall . '%', PDO::PARAM_STR);
-        }
-
-        if ($all == false){
-        $sth->bindValue(':limit', NB_ELEMENTS_PER_PAGE, PDO::PARAM_INT);
-        $sth->bindValue(':offset', $offset, PDO::PARAM_INT);
-        }
-
-        $sth->execute();
-        // $result = $sth->fetchAll();
-        while ($element = $sth->fetchAll()) {
-            // C'est là qu'on affiche les données  :)
-            return $element;
-        }
-        
-    }
-
-    public static function get_all_pagination(string $column = "type", string $order = "ASC",int $id_types = 0,string $searchall = '', int $page = 1, bool $all = false): array
-    {
-        $table = ($column == 'type') ? 'types' : 'vehicles';
-        //$page = offset 0 page 1 offset 10 page 2 offset 20 page 3 etc ...
-        $offset = ($page - 1) * NB_ELEMENTS_PER_PAGE;
-        $pdo = connect();
-        $sql = $sql = "SELECT * 
-        FROM `vehicles` 
-        INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
-        WHERE `vehicles`.`deleted_at` IS NULL";
-        if (!empty($searchall)) {
-            $sql = $sql ." AND (`brand` LIKE :searchall OR `model` LIKE :searchall)";
-        }
-        if ($id_types != 0) {
-            $sql = $sql ." AND `types`.`id_types` = :id_types";
-        }
-        $sql = $sql ." ORDER by `$table`.`$column` $order" ;
+        $sql = $sql . " ORDER by `$table`.`$column` $order";
 
         // if ($all == false){
         //     $sql = $sql . " LIMIT :limit OFFSET :offset ;";
@@ -221,7 +176,51 @@ class Vehicle
             $sth->bindValue(':id_types', $id_types, PDO::PARAM_INT);
         }
 
-        if (!empty($searchall)){
+        if (!empty($searchall)) {
+            $sth->bindValue(':searchall', '%' . $searchall . '%', PDO::PARAM_STR);
+        }
+
+        if ($all == false) {
+            $sth->bindValue(':limit', NB_ELEMENTS_PER_PAGE, PDO::PARAM_INT);
+            $sth->bindValue(':offset', $offset, PDO::PARAM_INT);
+        }
+
+        $sth->execute();
+        // $result = $sth->fetchAll();
+        while ($element = $sth->fetchAll()) {
+            // C'est là qu'on affiche les données  :)
+            return $element;
+        }
+    }
+
+    public static function get_all_pagination(string $column = "type", string $order = "ASC", int $id_types = 0, string $searchall = '', int $page = 1, bool $all = false): array
+    {
+        $table = ($column == 'type') ? 'types' : 'vehicles';
+        //$page = offset 0 page 1 offset 10 page 2 offset 20 page 3 etc ...
+        $offset = ($page - 1) * NB_ELEMENTS_PER_PAGE;
+        $pdo = connect();
+        $sql = $sql = "SELECT * 
+        FROM `vehicles` 
+        INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
+        WHERE `vehicles`.`deleted_at` IS NULL";
+        if (!empty($searchall)) {
+            $sql = $sql . " AND (`brand` LIKE :searchall OR `model` LIKE :searchall)";
+        }
+        if ($id_types != 0) {
+            $sql = $sql . " AND `types`.`id_types` = :id_types";
+        }
+        $sql = $sql . " ORDER by `$table`.`$column` $order";
+
+        // if ($all == false){
+        //     $sql = $sql . " LIMIT :limit OFFSET :offset ;";
+        // }
+
+        $sth = $pdo->prepare($sql);
+        if ($id_types != 0) {
+            $sth->bindValue(':id_types', $id_types, PDO::PARAM_INT);
+        }
+
+        if (!empty($searchall)) {
             $sth->bindValue(':searchall', '%' . $searchall . '%', PDO::PARAM_STR);
         }
 
@@ -231,12 +230,8 @@ class Vehicle
         // }
 
         $sth->execute();
-        // $result = $sth->fetchAll();
-        while ($element = $sth->fetchAll()) {
-            // C'est là qu'on affiche les données  :)
-            return $element;
-        }
-        
+        $result = $sth->fetchAll();
+        return $result;
     }
 
     // morceau qui remplace la requete 

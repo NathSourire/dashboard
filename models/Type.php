@@ -75,7 +75,7 @@ class Type
      * @return object
      * fonction qui permet de recuperer une catégorie précise
      */
-    public static function get(int $id_types): object
+    public static function get(int $id_types): object|false
     {
         $pdo = connect();
         $sql = 'SELECT * FROM `types` WHERE `id_types` = :id_types ;';
@@ -83,7 +83,13 @@ class Type
         $sth->bindValue(':id_types', $id_types, PDO::PARAM_INT);
         $sth->execute();
         $type = $sth->fetch(PDO::FETCH_OBJ);
-        return $type;
+        if (!$type) {
+            // Génération d'une exception renvoyant le message en paramètre au catch créé en amont et arrêt du traitement.
+            return false;
+        } else {
+            // Retourne true dans le cas contraire (tout s'est bien passé)
+            return $type;
+        }
     }
 
     /**

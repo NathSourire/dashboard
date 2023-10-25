@@ -44,24 +44,10 @@
     <?php } ?>
 </div>
 
-<!-- <nav class="d-flex justify-content-center " aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item">
-            <a class="page-link" aria-label="Previous">précedente</a>
-        </li>
-        <?php for ($currentPage = 1; $currentPage <= $nbPages; $currentPage++) {
-            $active = ($currentPage == $page) ? 'active' : "" ?>
-        <li class="page-item <?php $active ?>"><a class="page-link" href="?type=$id_type&searchall=<?= $searchall ?>&page=<?= $currentPage ?>"><?= $currentPage ?></a></li>
-        <?php } ?>
-        <li class="page-item">
-            <a class="page-link" aria-label="Next">Suivante</a>
-        </li>
-    </ul>
-</nav> -->
-<nav class="d-flex justify-content-center" aria-label="Page navigation example">
+<!-- <nav class="d-flex justify-content-center" aria-label="Page navigation example">
     <ul class="pagination">
         <li class="page-item <?php echo ($page <= 1) ? 'disabled' : ''; ?>">
-            <a class="page-link" aria-label="Previous" href="?type=<?= $id_type ?>&searchall=<?= $searchall ?>&page=<?= $page - 1 ?>">précédente</a>
+            <a class="page-link" aria-label="Previous" href="?type=<?= $id_type ?>&searchall=<?= $searchall ?>&page=<?= ($page > 1) ? $page - 1 : 1 ?>">précédente</a>
         </li>
         <?php for ($currentPage = 1; $currentPage <= $nbPages; $currentPage++) {
             $active = ($currentPage == $page) ? 'active' : ""; 
@@ -69,7 +55,8 @@
             <li class="page-item <?= $active ?>"><a class="page-link" href="?type=<?= $id_type ?>&searchall=<?= $searchall ?>&page=<?= $currentPage ?>"><?= $currentPage ?></a></li>
         <?php } ?>
         <li class="page-item <?php echo ($page >= $nbPages) ? 'disabled' : ''; ?>">
-            <a class="page-link" aria-label="Next" href="?type=<?= $id_type ?>&searchall=<?= $searchall ?>&page=<?= $page + 1 ?>">suivante</a>
+            <a class="page-link" aria-label="Next" href="?type=<?= $id_type ?>&searchall=<?= $searchall ?>&page=<?= ($page < $nbPages) ? $page + 1 : $page ?>">suivante</a>
         </li>
     </ul>
-</nav>
+</nav> -->
+<?php

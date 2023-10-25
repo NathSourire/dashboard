@@ -6,7 +6,8 @@
     <div class="row">
         <table class="table tablelist">
             <thead>
-                <th>Nom du véhicule</th>
+                <th><a href="?column=type&order=<?= ($order == 'DESC') ? 'ASC' : 'DESC'; ?>">Nom du véhicule
+                <img src="/public/assets/img/flèche_haut.png" alt="fleche vers le haut"><img src="/public/assets/img/flèche_bas.png" alt="fleche vers le bas"></a></th>  
                 <th><a href="?column=type&order=<?= ($order == 'DESC') ? 'ASC' : 'DESC'; ?>">Catégorie
                 <img src="/public/assets/img/flèche_haut.png" alt="fleche vers le haut"><img src="/public/assets/img/flèche_bas.png" alt="fleche vers le bas"></a></th>                
                 <th><a href="?column=brand&order=<?= ($order == 'DESC') ? 'ASC' : 'DESC'; ?>">Marque

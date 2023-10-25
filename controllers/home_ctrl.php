@@ -7,7 +7,7 @@ try {
     $script = 'home.js';
 
     // récuperation du type de voiture nettoyage et validation
-    $searchall = (string) filter_input(INPUT_GET, 'searchall', FILTER_SANITIZE_SPECIAL_CHARS);
+    $searchall = trim((string) filter_input(INPUT_GET, 'searchall', FILTER_SANITIZE_SPECIAL_CHARS));
     $id_types = intval(filter_input(INPUT_GET, 'type', FILTER_SANITIZE_NUMBER_INT));
     $page = intval(filter_input(INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT));
     
@@ -15,22 +15,23 @@ try {
 
     $nbVehicles = count($totalVehicles);
     $nbPages = ceil($nbVehicles / NB_ELEMENTS_PER_PAGE);
-    // Récupérez le numéro de page actuel à partir de la requête GET
-    $currentPage = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
-    
-    if (empty($page)){
-        $page = 1;
-    }
+
+    // Si $page vaut 0, alors, on l'initialise en première page.
+    $page = ($page == 0) ? 1 : $page;
+
     //affiche le tableau des véhicules 
     //$vehicles = Vehicle::get_all();
     $types = Type::get_all();
     $errors = [];
 
+    if (!Type::get($id_types)) {
+        $errors['id_type'] = 'Il n\'y a pas de véhicules dans cette catégorie';
+    }
+
 
 } catch (\Throwable $th) {
 
     $errors = $th->getMessage();
-
 
     include __DIR__ . '/../views/templates/header.php';
     include __DIR__ . '/../views/templates/error.php';
