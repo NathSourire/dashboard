@@ -29,7 +29,7 @@ const getCities = () => {
 
             // On boucle sur le tableau cities et on génère toutes les futures options du select
             cities.forEach(function(city){
-                options += '<option value="'+city.codeCommune+'">'+city.nomCommune+'</option>';
+                options += '<option >'+city.nomCommune+'</option>';
             })
 
             // On injecte dans le DOM les options au bon endroit.
@@ -39,6 +39,8 @@ const getCities = () => {
     }
     
 }
+
+// value="'+city.codeCommune+'"
 
 // Déclaration d'un event input sur le champs
 zipcode.addEventListener('input', getCities);

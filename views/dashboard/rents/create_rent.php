@@ -25,32 +25,24 @@
 <div class="row">
     <form class=" offset-1 offset-md-2 col-10 col-md-8" id="rentForm" enctype="multipart/form-data" method="post">
         <div>
-            <label class="form-label" for="lastnames">Nom *</label>
-            <input class="form-control form-control-lg " type="text" id="lastnames" name="lastnames" pattern="<?= REGEX_NAME ?>" required>
+            <label class="form-label" for="lastname">Nom *</label>
+            <input class="form-control form-control-lg " type="text" id="lastname" name="lastname" pattern="<?= REGEX_NAME ?>" required value="nath" >
             <p class="red">
                 <?= $errors['lastname'] ?? '' ?>
             </p>
         </div>
 
         <div>
-            <label class="form-label" for="firstnames">Prénom *</label>
-            <input class="form-control form-control-lg " type="text" id="firstnames" name="firstnames" pattern="<?= REGEX_NAME ?>" required>
+            <label class="form-label" for="firstname">Prénom *</label>
+            <input class="form-control form-control-lg " type="text" id="firstname" name="firstname" pattern="<?= REGEX_NAME ?>" required value="nath">
             <p class="red">
                 <?= $errors['firstname'] ?? '' ?>
             </p>
         </div>
 
         <div>
-            <label class="form-label" for="passWord3">Mot de passe *</label>
-            <input class="form-control" id="passWord3" type="password" name="password3" pattern="<?= REGEX_PASSWORD ?>" required><br>
-            <p class="red">
-                <?= $errors['password3'] ?? '' ?>
-            </p>
-        </div>
-
-        <div>
             <label class="form-label" for="birthday">Date de naissance *</label>
-            <input class="form-control form-control-lg " type="date" id="birthday" name="birthday" max="<?= $dateNow ?>" required>
+            <input class="form-control form-control-lg " type="date" id="birthday" name="birthday" max="<?= $dateNow ?>" required  >
             <p class="red">
                 <?= $errors['birthday'] ?? '' ?>
             </p>
@@ -66,8 +58,8 @@
 
         <div>
             <label class="form-label" for="city">ville *</label>
-            <select class="form-select form-control-lg " name="city" id="city">
-                <option selected>Ville...</option>
+            <select class="form-select form-select-lg " name="city" id="city">
+                <option selected >Ville</option>
             </select>
             <p class="red">
                 <?= $errors['city'] ?? '' ?>
@@ -75,8 +67,24 @@
         </div>
 
         <div>
+            <label class="form-label" for="phone">Numéro de téléphone *</label>
+            <input class="form-control form-control-lg " type="text" name="phone" id="phone" value="0322511679" >
+            <p class="red">
+                <?= $errors['phone'] ?? '' ?>
+            </p>
+        </div>
+
+        <div>
+            <label class="form-label" for="email">E-mail *</label>
+            <input class="form-control form-control-lg " type="email" id="email" name="email" value="nath@hdkf.fr" required>
+            <p class="red">
+                <?= $errors['email'] ?? '' ?>
+            </p>
+        </div>
+
+        <div>
             <label class="form-label" for="stardate">Date de location du véhicule *</label>
-            <input class="form-control form-control-lg " type="date" id="stardate" name="stardate" min="<?= $dateNow ?>" required>
+            <input class="form-control form-control-lg " type="date" id="stardate" name="stardate" max="<?= $dateNow ?>" required>
             <p class="red">
                 <?= $errors['stardate'] ?? '' ?>
             </p>

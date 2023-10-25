@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center">
 <form id="sheetForm" enctype="multipart/form-data" method="get">
-    <div class="row card border-3 border-warning bg-primary text-warning align-items-center m-2 ">
+    <div class="row card border-3 border-warning bg-primary text-warning align-items-center">
         <div class="col imgsheet w-75 m-3">
             <?php if ($vehicle->picture) { ?>
                 <img class="img-fluid my-5" src="/public/uploads/vehicles/<?= $vehicle->picture ?>" alt="<?= $vehicle->brand ?>">

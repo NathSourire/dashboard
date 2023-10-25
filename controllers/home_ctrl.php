@@ -12,8 +12,11 @@ try {
     $page = intval(filter_input(INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT));
     
     $totalVehicles = Vehicle::get_all_pagination(id_types: $id_types, searchall: $searchall, page: $page);
+
     $nbVehicles = count($totalVehicles);
     $nbPages = ceil($nbVehicles / NB_ELEMENTS_PER_PAGE);
+    // Récupérez le numéro de page actuel à partir de la requête GET
+    $currentPage = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
     
     if (empty($page)){
         $page = 1;

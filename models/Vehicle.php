@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../helpers/database.php';
 require_once __DIR__ . '/../config/constants.php';
+
+
 class Vehicle
 {
     private int $id_vehicles;
@@ -165,9 +167,9 @@ class Vehicle
         }
         $sql = $sql ." ORDER by `$table`.`$column` $order" ;
 
-        // if ($all == false){
-        //     $sql = $sql . " LIMIT :limit OFFSET :offset ;";
-        // }
+        if ($all == false){
+            $sql = $sql . " LIMIT :limit OFFSET :offset ;";
+        }
 
         $sth = $pdo->prepare($sql);
         if ($id_types != 0) {
@@ -178,10 +180,10 @@ class Vehicle
             $sth->bindValue(':searchall', '%' . $searchall . '%', PDO::PARAM_STR);
         }
 
-        // if ($all == false){
-        // $sth->bindValue(':limit', NB_ELEMENTS_PER_PAGE, PDO::PARAM_INT);
-        // $sth->bindValue(':offset', $offset, PDO::PARAM_INT);
-        // }
+        if ($all == false){
+        $sth->bindValue(':limit', NB_ELEMENTS_PER_PAGE, PDO::PARAM_INT);
+        $sth->bindValue(':offset', $offset, PDO::PARAM_INT);
+        }
 
         $sth->execute();
         // $result = $sth->fetchAll();
