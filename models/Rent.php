@@ -103,11 +103,29 @@ class Rent
     public static function get(int $id_rents): object
     {
         $pdo = Database::connect();
-        $sql = 'SELECT * FROM `rents` WHERE `id_rents` = :id_rents ;';
+        $sql = 'SELECT * FROM `rents`
+        INNER JOIN `clients` ON `rents`.`id_clients` = `clients`.`id_clients` 
+        INNER JOIN `vehicles` ON `rents`.`id_vehicles` = `vehicles`.`id_vehicles`
+        WHERE `id_rents` = :id_rents ;';
         $sth = $pdo->prepare($sql);
         $sth->bindValue(':id_rents', $id_rents, PDO::PARAM_INT);
         $sth->execute();
         $rents = $sth->fetch(PDO::FETCH_OBJ);
         return $rents;
+    }
+
+    public function update(): bool
+    {
+        $pdo = Database::connect();
+        $sql = 'UPDATE `rents` 
+            SET `startdate` = :startdate , `enddate` = :enddate , `id_vehicles` = :id_vehicles , `id_clients` = :id_clients
+            WHERE `id_rents` = :id_rents ;';
+        $sth = $pdo->prepare($sql);
+        $sth->bindValue(':startdate', $this->get_startdate(), PDO::PARAM_STR);
+        $sth->bindValue(':enddate', $this->get_enddate(), PDO::PARAM_STR);
+        $sth->bindValue(':id_vehicles', $this->get_id_vehicles(), PDO::PARAM_INT);
+        $sth->bindValue(':id_clients', $this->get_id_clients(), PDO::PARAM_INT);
+        $sth->execute();
+        return (bool) $sth->rowCount();
     }
 }

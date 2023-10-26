@@ -28,9 +28,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/controllers/home_ctrl.php">Accueil</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/controllers/dashboard/dashboard_ctrl.php">Accueil dashboard</a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Catégories
@@ -49,7 +46,7 @@
                             <li><a class="dropdown-item" href="/controllers/dashboard/vehicle/list_vehicle_ctrl.php">Lister/Modifier/Supprimer</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Clients
                         </a>
@@ -57,13 +54,13 @@
                             <li><a class="dropdown-item" href="/controllers/dashboard/clients/create_client_ctrl.php">Créer/Ajouter</a></li>
                             <li><a class="dropdown-item" href="/controllers/dashboard/clients/list_client_ctrl.php">Lister/Modifier/Supprimer</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Locations
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/controllers/dashboard/rents/create_rent_ctrl.php">Créer/Ajouter</a></li>
+                            <!-- <li><a class="dropdown-item" href="/controllers/dashboard/rents/create_rent_ctrl.php">Créer/Ajouter</a></li> -->
                             <li><a class="dropdown-item" href="/controllers/dashboard/rents/list_rent_ctrl.php">Lister/Modifier/Supprimer</a></li>
                         </ul>
                     </li>

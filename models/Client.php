@@ -113,7 +113,7 @@ class Client
         $pdo = Database::connect();
         $sql = 'INSERT INTO `clients` ( `lastname` , `firstname` , `email` , `birthday` , `phone` , `city` , `zipcode`) 
                 VALUES ( :lastname , :firstname , :email , :birthday, :phone , :city , :zipcode) ;';
-        
+
         $sth = $pdo->prepare($sql);
         $sth->bindValue(':lastname', $this->get_lastname(), PDO::PARAM_STR);
         $sth->bindValue(':firstname', $this->get_firstname(), PDO::PARAM_STR);
@@ -148,19 +148,22 @@ class Client
         $clients = $sth->fetch(PDO::FETCH_OBJ);
         return $clients;
     }
+    
+    public function update(): bool
+    {
+        $pdo = Database::connect();
+        $sql = 'UPDATE `client` 
+        SET `lastname` = :lastname , `firstname` = :firstname , `email` = :email , `birthday` = :birthday , `phone` : :phone , `city` = :city , `zipcode` : :zipcode
+        WHERE `id_clients` = :id_clients ;';
+        $sth = $pdo->prepare($sql);
+        $sth->bindValue(':lastname', $this->get_lastname(), PDO::PARAM_STR);
+        $sth->bindValue(':firstname', $this->get_firstname(), PDO::PARAM_STR);
+        $sth->bindValue(':email', $this->get_email(), PDO::PARAM_STR);
+        $sth->bindValue(':birthday', $this->get_birthday(), PDO::PARAM_STR);
+        $sth->bindValue(':phone', $this->get_phone(), PDO::PARAM_STR);
+        $sth->bindValue(':city', $this->get_city(), PDO::PARAM_STR);
+        $sth->bindValue(':zipcode', $this->get_zipcode(), PDO::PARAM_STR);
+        $sth->execute();
+        return (bool) $sth->rowCount();
+    }
 }
-    // //fonction pour archiver un véhicule et lui attribué une date
-    // public static function archived(int $id_vehicles): bool
-    // {
-    //     $pdo = Database::connect();
-    //     $sql = 'UPDATE `clients` SET `deleted_at`= NOW() WHERE `id_vehicles` = :id_vehicles ;';
-    //     $sth = $pdo->prepare($sql);
-    //     $sth->bindValue(':id_vehicles', $id_vehicles, PDO::PARAM_INT);
-    //     $sth->execute();
-    //     $result = $sth->fetch();
-    //     if ($result) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
