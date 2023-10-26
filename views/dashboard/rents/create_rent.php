@@ -26,7 +26,7 @@
     <form class=" offset-1 offset-md-2 col-10 col-md-8" id="rentForm" enctype="multipart/form-data" method="post">
         <div>
             <label class="form-label" for="lastname">Nom *</label>
-            <input class="form-control form-control-lg " type="text" id="lastname" name="lastname" pattern="<?= REGEX_NAME ?>" required value="nath" >
+            <input class="form-control form-control-lg " type="text" id="lastname" name="lastname" autocomplete="family-name" pattern="<?= REGEX_NAME ?>" required >
             <p class="red">
                 <?= $errors['lastname'] ?? '' ?>
             </p>
@@ -34,7 +34,7 @@
 
         <div>
             <label class="form-label" for="firstname">Prénom *</label>
-            <input class="form-control form-control-lg " type="text" id="firstname" name="firstname" pattern="<?= REGEX_NAME ?>" required value="nath">
+            <input class="form-control form-control-lg " type="text" id="firstname" name="firstname" autocomplete="given-name" pattern="<?= REGEX_NAME ?>" required >
             <p class="red">
                 <?= $errors['firstname'] ?? '' ?>
             </p>
@@ -68,7 +68,7 @@
 
         <div>
             <label class="form-label" for="phone">Numéro de téléphone *</label>
-            <input class="form-control form-control-lg " type="text" name="phone" id="phone" value="0322511679" >
+            <input class="form-control form-control-lg " type="text" name="phone" id="phone" maxlength="10" autocomplete="tel" pattern="<?= REGEX_TEL ?>">
             <p class="red">
                 <?= $errors['phone'] ?? '' ?>
             </p>
@@ -76,7 +76,7 @@
 
         <div>
             <label class="form-label" for="email">E-mail *</label>
-            <input class="form-control form-control-lg " type="email" id="email" name="email" value="nath@hdkf.fr" required>
+            <input class="form-control form-control-lg " type="email" id="email" autocomplete="email" name="email" required>
             <p class="red">
                 <?= $errors['email'] ?? '' ?>
             </p>
@@ -84,7 +84,7 @@
 
         <div>
             <label class="form-label" for="stardate">Date de location du véhicule *</label>
-            <input class="form-control form-control-lg " type="date" id="stardate" name="stardate" max="<?= $dateNow ?>" required>
+            <input class="form-control form-control-lg " type="date" id="stardate" name="stardate" min="<?= $dateNow ?>" required>
             <p class="red">
                 <?= $errors['stardate'] ?? '' ?>
             </p>
@@ -92,7 +92,7 @@
 
         <div>
             <label class="form-label" for="enddate">Date de restitution du véhicule *</label>
-            <input class="form-control form-control-lg " type="date" id="enddate" name="enddate" max="<?= $dateNow ?>" required>
+            <input class="form-control form-control-lg " type="date" id="enddate" name="enddate" min="<?= $dateNow ?>" required>
             <p class="red">
                 <?= $errors['enddate'] ?? '' ?>
             </p>

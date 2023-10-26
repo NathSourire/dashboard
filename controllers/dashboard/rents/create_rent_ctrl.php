@@ -5,15 +5,11 @@ require_once __DIR__ . '/../../../models/Rent.php';
 require_once __DIR__ . '/../../../models/Client.php';
 
 try {
-
+    $dateNow = date('Y-m-d');
     $id_vehicles = intval(filter_input(INPUT_GET, 'id_vehicles', FILTER_SANITIZE_NUMBER_INT));
-    // $id_clients = Client::get($id_clients);
-    // $lastInsertedId = $client->insert();
     $errors = [];
 
     if ($_SERVER["REQUEST_METHOD"] == 'POST') {
-
-
         // récuperation du nom de famille nettoyage et validation
         $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_SPECIAL_CHARS);
         if (empty($lastname)) {
@@ -36,6 +32,7 @@ try {
             }
         }
 
+        // récuperation de l'email nettoyage et validation
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         if (empty($email)) {
             $errors['email'] = 'Veuillez entrer un email';
@@ -47,10 +44,16 @@ try {
         }
 
         // récuperation de la date de restitution nettoyage et validation
-        $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS);
+        $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_NUMBER_INT);
         if (empty($phone)) {
             $errors['phone'] = 'Veuillez entrer un numéro de téléphone';
         } 
+        // else {
+        //     $isOk = filter_var($phone, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . REGEX_TEL . '/']]);
+        //     if (!$isOk) {
+        //         $errors['phone'] = 'Veuillez entrer un prénom valide';
+        //     }
+        // }
 
         // récuperation du code postale  nettoyage et validation
         $zipcode = filter_input(INPUT_POST, 'zipcode', FILTER_SANITIZE_NUMBER_INT);
@@ -62,7 +65,7 @@ try {
         $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_SPECIAL_CHARS);
         if (empty($city)) {
             $errors['city'] = 'Veuillez choisir un nom de ville';
-        } 
+        }
 
         // récuperation de la date anniversaire nettoyage et validation
         $birthday = filter_input(INPUT_POST, 'birthday', FILTER_SANITIZE_NUMBER_INT);
@@ -97,7 +100,6 @@ try {
             }
         }
 
-
         if (empty($errors)) {
             $newClients = new Client();
             $newClients->set_lastname($lastname);
@@ -112,12 +114,12 @@ try {
 
         if (empty($errors)) {
             $newRents = new Rent();
-            $newRents->set_id_clients($lastInsertedId);
+            $newRents->set_id_clients($saved);
+            $newRents->set_id_vehicles($id_vehicles);
             $newRents->set_startdate($stardate);
             $newRents->set_enddate($enddate);
             $saved = $newRents->insert();
         }
-
     }
 
     //affiche le tableau des véhicules 

@@ -1,6 +1,6 @@
 <h1> Modifier</h1>
 
-<form class=" offset-1 offset-md-2 col-10 col-md-8" enctype="multipart/form-data" method="post" novalidate>
+<form class=" offset-1 offset-md-3 col-10 col-md-6" enctype="multipart/form-data" method="post" novalidate>
 
     <div>
         <label class="form-label" for="name_vehicle">Nom du véhicule</label>
@@ -70,7 +70,7 @@
     </div>
 
     <div>
-        <button type="submit">Modifier</button>
+    <button class="btn btn-primary text-light" type="submit">Modifier</button>
     </div>
     <p class="red"><?= isset($saved) ? 'Catégorie modifiée' : '' ?></p>
 </form>

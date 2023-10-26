@@ -5,4 +5,4 @@ define('REGEX_PASSWORD', "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-
 define('REGEX_DATE', "^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$");
 define('REGEX_MILEAGE', "^[0-9 ]*$");
 define('REGEX_REGISTRATION', "^[a-zA-Z0-9\-]*$");
-define('REGEX_TEL', "^(\\+33|0)\\s*1-9{4}$");
+define('REGEX_TEL', "^[1-9]([-. ]?[0-9]{2}){4}$");

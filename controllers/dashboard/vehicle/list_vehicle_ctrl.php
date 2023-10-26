@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../../models/Vehicle.php';
 
 try {
-    $title = 'Lister/Modifier/Supprimer';
+    // $title = 'Lister/Modifier/Supprimer';
     $column = filter_input(INPUT_GET, 'column', FILTER_SANITIZE_SPECIAL_CHARS);
     $order = filter_input(INPUT_GET, 'order', FILTER_SANITIZE_SPECIAL_CHARS);
     if((empty($order) || $order != 'ASC') && $order != 'DESC' ){
@@ -22,6 +22,7 @@ try {
 } catch (\Throwable $th) {
 
     $errors = $th->getMessage();
+    var_dump($th);
 
     
     include __DIR__ . '/../../../views/templates/header.php';

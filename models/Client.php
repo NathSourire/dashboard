@@ -125,7 +125,6 @@ class Client
         $sth->execute();
 
         $lastInsertedId = $pdo->lastInsertId();
-        
         return (int) $lastInsertedId;
     }
 
@@ -154,7 +153,7 @@ class Client
     // public static function archived(int $id_vehicles): bool
     // {
     //     $pdo = connect();
-    //     $sql = 'UPDATE `vehicles` SET `deleted_at`= NOW() WHERE `id_vehicles` = :id_vehicles ;';
+    //     $sql = 'UPDATE `clients` SET `deleted_at`= NOW() WHERE `id_vehicles` = :id_vehicles ;';
     //     $sth = $pdo->prepare($sql);
     //     $sth->bindValue(':id_vehicles', $id_vehicles, PDO::PARAM_INT);
     //     $sth->execute();

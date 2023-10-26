@@ -180,10 +180,10 @@ class Vehicle
             $sth->bindValue(':searchall', '%' . $searchall . '%', PDO::PARAM_STR);
         }
 
-        if ($all == false) {
-            $sth->bindValue(':limit', NB_ELEMENTS_PER_PAGE, PDO::PARAM_INT);
-            $sth->bindValue(':offset', $offset, PDO::PARAM_INT);
-        }
+        // if ($all == false) {
+        //     $sth->bindValue(':limit', NB_ELEMENTS_PER_PAGE, PDO::PARAM_INT);
+        //     $sth->bindValue(':offset', $offset, PDO::PARAM_INT);
+        // }
 
         $sth->execute();
         // $result = $sth->fetchAll();
