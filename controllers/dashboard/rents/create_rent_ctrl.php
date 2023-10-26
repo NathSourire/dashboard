@@ -47,7 +47,7 @@ try {
         $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_NUMBER_INT);
         if (empty($phone)) {
             $errors['phone'] = 'Veuillez entrer un numéro de téléphone';
-        } 
+        }
         // else {
         //     $isOk = filter_var($phone, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . REGEX_TEL . '/']]);
         //     if (!$isOk) {
@@ -101,24 +101,33 @@ try {
         }
 
         if (empty($errors)) {
-            $newClients = new Client();
-            $newClients->set_lastname($lastname);
-            $newClients->set_firstname($firstname);
-            $newClients->set_email($email);
-            $newClients->set_birthday($birthday);
-            $newClients->set_phone($phone);
-            $newClients->set_city($city);
-            $newClients->set_zipcode($zipcode);
-            $saved = $newClients->insert();
-        }
-
-        if (empty($errors)) {
-            $newRents = new Rent();
-            $newRents->set_id_clients($saved);
-            $newRents->set_id_vehicles($id_vehicles);
-            $newRents->set_startdate($stardate);
-            $newRents->set_enddate($enddate);
-            $saved = $newRents->insert();
+            try {
+                $pdo = Database::connect();
+                $pdo->beginTransaction();
+                $newClients = new Client();
+                $newClients->set_lastname($lastname);
+                $newClients->set_firstname($firstname);
+                $newClients->set_email($email);
+                $newClients->set_birthday($birthday);
+                $newClients->set_phone($phone);
+                $newClients->set_city($city);
+                $newClients->set_zipcode($zipcode);
+                $id_client = $newClients->insert();
+                $newRents = new Rent();
+                $newRents->set_id_clients($id_client);
+                $newRents->set_id_vehicles($id_vehicles);
+                $newRents->set_startdate($stardate);
+                $newRents->set_enddate($enddate);
+                $id_rent = $newRents->insert();
+                // si il y a un id dans client et dans rent ca valide si un des deux ou les deux on pas de id ca annule tout
+                if ($id_client && $id_rent) {
+                    $pdo->commit();
+                } else {
+                    $pdo->rollBack();
+                }
+            } catch (\Throwable $th) {
+                $pdo->rollBack();
+            }
         }
     }
 

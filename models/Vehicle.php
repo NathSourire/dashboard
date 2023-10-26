@@ -123,7 +123,7 @@ class Vehicle
     //fonction pour ajouter un objet
     public function insert(): bool
     {
-        $pdo = connect();
+        $pdo = Database::connect();
         $sql = 'INSERT INTO `vehicles` (  `brand` , `model` , `registration` , `mileage` , `id_types` , `picture` , `name_vehicle` ) 
             VALUES ( :brand , :model , :registration , :mileage , :id_types , :picture , :name_vehicle) ;';
         $sth = $pdo->prepare($sql);
@@ -154,7 +154,7 @@ class Vehicle
         $table = ($column == 'type') ? 'types' : 'vehicles';
         //$page = offset 0 page 1 offset 10 page 2 offset 20 page 3 etc ...
         $offset = ($page - 1) * NB_ELEMENTS_PER_PAGE;
-        $pdo = connect();
+        $pdo = Database::connect();
         $sql = $sql = "SELECT * 
         FROM `vehicles` 
         INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
@@ -198,7 +198,7 @@ class Vehicle
         $table = ($column == 'type') ? 'types' : 'vehicles';
         //$page = offset 0 page 1 offset 10 page 2 offset 20 page 3 etc ...
         $offset = ($page - 1) * NB_ELEMENTS_PER_PAGE;
-        $pdo = connect();
+        $pdo = Database::connect();
         $sql = $sql = "SELECT * 
         FROM `vehicles` 
         INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
@@ -253,7 +253,7 @@ class Vehicle
     // fonction qui permet de recuperer une catégorie précise
     public static function get(int $id_vehicles): object
     {
-        $pdo = connect();
+        $pdo = Database::connect();
         $sql = 'SELECT * FROM `vehicles` 
         INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
         WHERE `id_vehicles` = :id_vehicles;';
@@ -267,7 +267,7 @@ class Vehicle
     //fonction pour modifier
     public function update(): bool
     {
-        $pdo = connect();
+        $pdo = Database::connect();
         $sql = 'UPDATE `vehicles` SET `brand` = :brand, `model` = :model, `registration` = :registration,
         `mileage` = :mileage, `id_types` = :id_types, `id_vehicles` = :id_vehicles, `picture` = :picture  
         WHERE `id_vehicles` = :id_vehicles ;';
@@ -286,7 +286,7 @@ class Vehicle
     // fonction pour supprimer le vehicule
     public static function delete(int $id_vehicles): bool
     {
-        $pdo = connect();
+        $pdo = Database::connect();
         $sql = 'DELETE FROM `vehicles` WHERE `id_vehicles` = :id_vehicles ;';
         $sth = $pdo->prepare($sql);
         $sth->bindValue(':id_vehicles', $id_vehicles, PDO::PARAM_INT);
@@ -297,7 +297,7 @@ class Vehicle
     //fonction pour archiver un véhicule et lui attribué une date
     public static function archived(int $id_vehicles): bool
     {
-        $pdo = connect();
+        $pdo = Database::connect();
         $sql = 'UPDATE `vehicles` SET `deleted_at`= NOW() WHERE `id_vehicles` = :id_vehicles ;';
         $sth = $pdo->prepare($sql);
         $sth->bindValue(':id_vehicles', $id_vehicles, PDO::PARAM_INT);
@@ -312,7 +312,7 @@ class Vehicle
 
     public static function get_all_archived(string $order): array
     {
-        $pdo = connect();
+        $pdo = Database::connect();
         $sql = "SELECT *
         FROM `vehicles`
         INNER JOIN `types` ON `vehicles`.`id_types` = `types`.`id_types`
@@ -328,7 +328,7 @@ class Vehicle
     //fonction pour archiver un véhicule et lui attribué une date
     public static function restored(int $id_vehicles): bool
     {
-        $pdo = connect();
+        $pdo = Database::connect();
         $sql = 'UPDATE `vehicles` SET `deleted_at`= NULL WHERE `id_vehicles` = :id_vehicles ;';
         $sth = $pdo->prepare($sql);
         $sth->bindValue(':id_vehicles', $id_vehicles, PDO::PARAM_INT);

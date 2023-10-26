@@ -110,7 +110,7 @@ class Client
     //fonction pour ajouter un objet
     public function insert(): int
     {
-        $pdo = connect();
+        $pdo = Database::connect();
         $sql = 'INSERT INTO `clients` ( `lastname` , `firstname` , `email` , `birthday` , `phone` , `city` , `zipcode`) 
                 VALUES ( :lastname , :firstname , :email , :birthday, :phone , :city , :zipcode) ;';
         
@@ -130,7 +130,7 @@ class Client
 
     public static function get_all(): array
     {
-        $pdo = connect();
+        $pdo = Database::connect();
         $sql = 'SELECT * FROM `clients`
             ORDER BY `id_clients` , `lastname` , `firstname` , `email` , `birthday` , `phone` , `city` , `zipcode` , `created_at` , `updated_at`;';
         $sth = $pdo->query($sql);
@@ -140,7 +140,7 @@ class Client
 
     public static function get(int $id_clients): object
     {
-        $pdo = connect();
+        $pdo = Database::connect();
         $sql = 'SELECT * FROM `clients` WHERE `id_clients` = :id_clients ;';
         $sth = $pdo->prepare($sql);
         $sth->bindValue(':id_clients', $id_clients, PDO::PARAM_INT);
@@ -152,7 +152,7 @@ class Client
     // //fonction pour archiver un véhicule et lui attribué une date
     // public static function archived(int $id_vehicles): bool
     // {
-    //     $pdo = connect();
+    //     $pdo = Database::connect();
     //     $sql = 'UPDATE `clients` SET `deleted_at`= NOW() WHERE `id_vehicles` = :id_vehicles ;';
     //     $sth = $pdo->prepare($sql);
     //     $sth->bindValue(':id_vehicles', $id_vehicles, PDO::PARAM_INT);

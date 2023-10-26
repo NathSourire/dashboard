@@ -77,7 +77,7 @@ class Rent
     //fonction pour ajouter un objet
     public function insert(): bool
     {
-        $pdo = connect();
+        $pdo = Database::connect();
         $sql = 'INSERT INTO `rents` ( `startdate` , `enddate` , `id_vehicles` , `id_clients` ) 
                 VALUES ( :startdate , :enddate , :id_vehicles , :id_clients ) ;';
         $sth = $pdo->prepare($sql);
@@ -91,7 +91,7 @@ class Rent
 
     public static function get_all(): array
     {
-        $pdo = connect();
+        $pdo = Database::connect();
         $sql = 'SELECT * FROM `rents`
         INNER JOIN `clients` ON `rents`.`id_clients` = `clients`.`id_clients` 
         INNER JOIN `vehicles` ON `rents`.`id_vehicles` = `vehicles`.`id_vehicles`;';
@@ -102,7 +102,7 @@ class Rent
 
     public static function get(int $id_rents): object
     {
-        $pdo = connect();
+        $pdo = Database::connect();
         $sql = 'SELECT * FROM `rents` WHERE `id_rents` = :id_rents ;';
         $sth = $pdo->prepare($sql);
         $sth->bindValue(':id_rents', $id_rents, PDO::PARAM_INT);
