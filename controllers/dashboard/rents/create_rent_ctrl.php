@@ -133,6 +133,8 @@ try {
                 // si il y a un id dans client et dans rent ca valide si un des deux ou les deux on pas de id ca annule tout
                 if ($id_client && $id_rent) {
                     $pdo->commit();
+                        header('location: /controllers/dashboard/rents/list_rent_ctrl.php');
+                        die;
                 } else {
                     $pdo->rollBack();
                 }

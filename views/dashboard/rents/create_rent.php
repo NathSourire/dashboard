@@ -26,7 +26,7 @@
     <form class=" offset-1 offset-md-2 col-10 col-md-8" id="rentForm" enctype="multipart/form-data" method="post">
         <div>
             <label class="form-label" for="lastname">Nom *</label>
-            <input class="form-control form-control-lg " type="text" id="lastname" value="sourire"
+            <input class="form-control form-control-lg " type="text" id="lastname" value=""
             name="lastname" autocomplete="family-name" pattern="<?= REGEX_NAME ?>" required>
             <p class="red">
                 <?= $errors['lastname'] ?? '' ?>
@@ -35,7 +35,7 @@
 
         <div>
             <label class="form-label" for="firstname">Prénom *</label>
-            <input class="form-control form-control-lg " type="text" id="firstname" value="nath"
+            <input class="form-control form-control-lg " type="text" id="firstname" value=""
             name="firstname" autocomplete="given-name" pattern="<?= REGEX_NAME ?>" required>
             <p class="red">
                 <?= $errors['firstname'] ?? '' ?>
@@ -72,7 +72,7 @@
 
         <div>
             <label class="form-label" for="phone">Numéro de téléphone *</label>
-            <input class="form-control form-control-lg " type="text" name="phone" id="phone" value="0322511679"
+            <input class="form-control form-control-lg " type="text" name="phone" id="phone" value=""
             maxlength="10" autocomplete="tel" pattern="<?= REGEX_TEL ?>">
             <p class="red">
                 <?= $errors['phone'] ?? '' ?>
@@ -81,7 +81,7 @@
 
         <div>
             <label class="form-label" for="email">E-mail *</label>
-            <input class="form-control form-control-lg " type="email" id="email" value="blabla@bla.fr"
+            <input class="form-control form-control-lg " type="email" id="email" value=""
             autocomplete="email" name="email" required>
             <p class="red">
                 <?= $errors['email'] ?? '' ?>
