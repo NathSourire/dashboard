@@ -23,21 +23,23 @@
     <?php
     foreach ($totalVehicles as $vehicle) {
     ?>
-        <div class="py-3" >
+        <div class="accueilimg py-3">
             <a href="/controllers/sheet_vehicle_ctrl.php?id_vehicles=<?= $vehicle->id_vehicles ?>">
-                <div class="card border-3 border-warning bg-primary justify-content-center h-100 text-warning col">
+                <div class="card border-3 border-warning bg-primary d-flex align-items-center  text-center h-100 text-warning col">
                     <?php if ($vehicle->picture) { ?>
-                        <img class="img-fluid" src="/public/uploads/vehicles/<?= $vehicle->picture ?>" alt="<?= $vehicle->brand ?>">
+                        <img class="img-fluid " src="/public/uploads/vehicles/<?= $vehicle->picture ?>" alt="<?= $vehicle->brand ?>">
                     <?php } else { ?>
                         <img class="img-fluid" src="/public/assets/img/pokemon97.webp" alt="Groupe de pokemon">
                     <?php } ?>
                     <!-- <img class="img-fluid" src="/public/uploads/vehicles/<?= ($vehicle->picture == true) ? $vehicle->picture : '/public/assets/img/pokemon97.webp' ?>" alt=""> -->
-                    <h4 class="card-title my-3 d-flex justify-content-center "><?= $vehicle->name_vehicle ?></h4>
-                    <li class="d-flex justify-content-around"><?= 'Catégorie : ' . $vehicle->type  ?></li>
-                    <li class="d-flex justify-content-around"><?= 'Marque : ' . $vehicle->brand ?></li>
-                    <li class="d-flex justify-content-around"><?= 'Model : ' . $vehicle->model ?></li>
-                    <li class="d-flex justify-content-around"><?= 'Immatriculation : ' . $vehicle->registration ?></li>
-                    <li class="d-flex justify-content-around"><?= 'Kilométrage : ' . $vehicle->mileage ?></li>
+                    <h4 class="card-title my-3"><?= $vehicle->name_vehicle ?></h4>
+                    <ul>
+                        <li><?= 'Catégorie : ' . $vehicle->type  ?></li>
+                        <li><?= 'Marque : ' . $vehicle->brand ?></li>
+                        <li><?= 'Model : ' . $vehicle->model ?></li>
+                        <li><?= 'Immatriculation : ' . $vehicle->registration ?></li>
+                        <li><?= 'Kilométrage : ' . $vehicle->mileage ?></li>
+                    </ul>
                 </div>
             </a>
         </div>
@@ -50,7 +52,7 @@
             <a class="page-link" aria-label="Previous" href="?type=<?= $id_type ?>&searchall=<?= $searchall ?>&page=<?= ($page > 1) ? $page - 1 : 1 ?>">précédente</a>
         </li>
         <?php for ($currentPage = 1; $currentPage <= $nbPages; $currentPage++) {
-            $active = ($currentPage == $page) ? 'active' : ""; 
+            $active = ($currentPage == $page) ? 'active' : "";
         ?>
             <li class="page-item <?= $active ?>"><a class="page-link" href="?type=<?= $id_type ?>&searchall=<?= $searchall ?>&page=<?= $currentPage ?>"><?= $currentPage ?></a></li>
         <?php } ?>

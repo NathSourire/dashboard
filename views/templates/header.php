@@ -19,7 +19,7 @@
     <nav class="navbar navbar-expand-lg ">
         <div class="container-fluid">
             <a class="navbar-brand">Projet Dashbord </a>
-            <img class="imgpokemon" src="/public/assets/img/Pokemon.jpg" alt="Pokemon" srcset="">
+            <img class="imgpokemon" src="/public/assets/img/Pokemon.jpg" alt="Pokemon">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

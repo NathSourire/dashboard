@@ -251,7 +251,7 @@ class Vehicle
 
 
     // fonction qui permet de recuperer une catégorie précise
-    public static function get(int $id_vehicles): object
+    public static function get(int $id_vehicles): object|bool
     {
         $pdo = Database::connect();
         $sql = 'SELECT * FROM `vehicles` 
