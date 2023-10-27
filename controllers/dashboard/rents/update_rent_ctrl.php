@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../../../models/Vehicle.php';
-require_once __DIR__ . '/../../../config/regex.php';
+require_once __DIR__ . '/../../../helpers/init.php';
 require_once __DIR__ . '/../../../models/Rent.php';
 require_once __DIR__ . '/../../../models/Client.php';
 
@@ -49,12 +49,6 @@ try {
         if (empty($phone)) {
             $errors['phone'] = 'Veuillez entrer un numéro de téléphone';
         }
-        // else {
-        //     $isOk = filter_var($phone, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . REGEX_TEL . '/']]);
-        //     if (!$isOk) {
-        //         $errors['phone'] = 'Veuillez entrer un prénom valide';
-        //     }
-        // }
 
         // récuperation du code postale  nettoyage et validation
         $zipcode = filter_input(INPUT_POST, 'zipcode', FILTER_SANITIZE_NUMBER_INT);
@@ -80,28 +74,36 @@ try {
         }
 
         // récuperation de la date de location nettoyage et validation
-        // $stardate = filter_input(INPUT_POST, 'stardate', FILTER_SANITIZE_NUMBER_INT);
-        // if (empty($stardate)) {
-        //     $errors['stardate'] = 'Veuillez entrer une date de location';
-        // } 
-        // else {
-        //     $isOk = filter_var($stardate, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . REGEX_DATE . '/']]);
-        //     if (!$isOk) {
-        //         $errors['stardate'] = 'Veuillez entrer une date de location valide';
-        //     }
-        // }
+        $stardate = filter_input(INPUT_POST, 'stardate', FILTER_SANITIZE_NUMBER_INT);
+        if (empty($stardate)) {
+            $errors['stardate'] = 'Veuillez entrer une date de location';
+        } else {
+            $isOk = filter_var($stardate, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . REGEX_DATE . '/']]);
+            if (!$isOk) {
+                $errors['stardate'] = 'Veuillez entrer une date de location valide';
+            }
+        }
+        $rentHeureStart = filter_input(INPUT_POST, 'rentHeureStart');
+        $rentMinStart = filter_input(INPUT_POST, 'rentMinStart');
+        if (!in_array($rentHeureStart, HOURS) || !in_array($rentMinStart, MINUTES)) {
+            $errors['rentTimeStart'] = 'Veuillez entrer un horaire valide';
+        }
 
         // récuperation de la date de restitution nettoyage et validation
-        // $enddate = filter_input(INPUT_POST, 'enddate', FILTER_SANITIZE_NUMBER_INT);
-        // if (empty($enddate)) {
-        //     $errors['enddate'] = 'Veuillez entrer une date de restitution';
-        // } 
-        // else {
-        //     $isOk = filter_var($enddate, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . REGEX_DATE . '/']]);
-        //     if (!$isOk) {
-        //         $errors['enddate'] = 'Veuillez entrer une date de restitution valide';
-        //     }
-        // }
+        $enddate = filter_input(INPUT_POST, 'enddate', FILTER_SANITIZE_NUMBER_INT);
+        if (empty($enddate)) {
+            $errors['enddate'] = 'Veuillez entrer une date de restitution';
+        } else {
+            $isOk = filter_var($enddate, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . REGEX_DATE . '/']]);
+            if (!$isOk) {
+                $errors['enddate'] = 'Veuillez entrer une date de restitution valide';
+            }
+        }
+        $rentHeureEnd = filter_input(INPUT_POST, 'rentHeureEnd');
+        $rentMinEnd = filter_input(INPUT_POST, 'rentMinEnd');
+        if (!in_array($rentHeureEnd, HOURS) || !in_array($rentMinEnd, MINUTES)) {
+            $errors['rentTimeEnd'] = 'Veuillez entrer un horaire valide';
+        }
 
         if (empty($errors)) {
             try {
@@ -119,8 +121,8 @@ try {
                 $newRents = new Rent();
                 $newRents->set_id_clients($id_client);
                 $newRents->set_id_vehicles($id_vehicles);
-                $newRents->set_startdate($stardate);
-                $newRents->set_enddate($enddate);
+                $newRents->set_startdate($stardate . ' ' . $rentHeureStart . ':' . $rentMinStart);
+                $newRents->set_enddate($enddate . ' ' . $rentHeureEnd . ':' . $rentMinEnd);
                 $id_rent = $newRents->update();
                 // si il y a un id dans client et dans rent ca valide si un des deux ou les deux on pas de id ca annule tout
                 if ($id_client && $id_rent) {
@@ -132,6 +134,7 @@ try {
                 $pdo->rollBack();
             }
         }
+
     }
 
 } catch (\Throwable $th) {
