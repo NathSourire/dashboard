@@ -134,7 +134,6 @@ try {
                 $pdo->rollBack();
             }
         }
-
     }
 
 } catch (\Throwable $th) {
